@@ -1,0 +1,64 @@
+
+> klara-ai-saas-ui@0.1.0 build
+> next build
+
+  Gû¦ Next.js 14.2.5
+
+   Creating an optimized production build ...
+ G£ô Compiled successfully
+   Linting and checking validity of types ...
+   Collecting page data ...
+   Generating static pages (0/38) ...
+   Generating static pages (9/38) 
+   Generating static pages (18/38) 
+   Generating static pages (28/38) 
+ G£ô Generating static pages (38/38)
+   Finalizing page optimization ...
+   Collecting build traces ...
+
+Route (app)                                          Size     First Load JS
+Göî Gùï /                                                23.7 kB         151 kB
+Gö£ Gùï /_not-found                                      871 B            88 kB
+Gö£ Gùï /api/ai-ad-performance-engine                    0 B                0 B
+Gö£ ¦Æ /api/ai-ad-performance-engine/budget             0 B                0 B
+Gö£ ¦Æ /api/ai-ad-performance-engine/campaigns          0 B                0 B
+Gö£ ¦Æ /api/ai-ad-performance-engine/creatives          0 B                0 B
+Gö£ Gùï /api/ai-ad-performance-engine/insights           0 B                0 B
+Gö£ Gùï /api/ai-ugc-creative-engine                      0 B                0 B
+Gö£ ¦Æ /api/ai-ugc-creative-engine/generate             0 B                0 B
+Gö£ Gùï /api/ai-ugc-creative-engine/insights             0 B                0 B
+Gö£ ¦Æ /api/ai-ugc-creative-engine/library              0 B                0 B
+Gö£ Gùï /api/ai-ugc-creative-engine/performance          0 B                0 B
+Gö£ ¦Æ /api/ai-ugc-creative-engine/scheduler            0 B                0 B
+Gö£ ¦Æ /api/chat                                        0 B                0 B
+Gö£ ¦Æ /api/clients                                     0 B                0 B
+Gö£ Gùï /api/conversion                                  0 B                0 B
+Gö£ Gùï /api/funnel                                      0 B                0 B
+Gö£ Gùï /api/insights                                    0 B                0 B
+Gö£ Gùï /api/leads                                       0 B                0 B
+Gö£ Gùï /api/metrics                                     0 B                0 B
+Gö£ Gùï /api/response-time                               0 B                0 B
+Gö£ Gùï /api/revenue                                     0 B                0 B
+Gö£ Gùï /api/revenue-analytics                           0 B                0 B
+Gö£ Gùï /api/schedule                                    0 B                0 B
+Gö£ Gùï /api/stats                                       0 B                0 B
+Gö£ Gùï /api/suggested-knowledge                         0 B                0 B
+Gö£ Gùï /api/tasks                                       0 B                0 B
+Gö£ Gùï /api/team-members                                0 B                0 B
+Gö£ Gùï /api/workflow-columns                            0 B                0 B
+Gö£ Gùï /api/workflow-tasks                              0 B                0 B
+Gö£ ¦Æ /dashboard                                       17.7 kB         120 kB
+Gö£ Gùï /dashboard/ai-ad-performance-engine              9.48 kB         107 kB
+Gö£ Gùï /dashboard/ai-ad-performance-engine/performance  0 B                0 B
+Gö£ Gùï /dashboard/ai-ugc-creative-engine                12.7 kB         111 kB
+Gö£ Gùï /dashboard/revenue-analytics                     6.29 kB         104 kB
+Göö Gùï /dashboard/workspace                             909 B           103 kB
++ First Load JS shared by all                        87.1 kB
+  Gö£ chunks/23-0be35d28be0be4ac.js                    31.5 kB
+  Gö£ chunks/fd9d1056-0833d4113df4c4eb.js              53.6 kB
+  Göö other shared chunks (total)                      1.95 kB
+
+
+Gùï  (Static)   prerendered as static content
+¦Æ  (Dynamic)  server-rendered on demand
+

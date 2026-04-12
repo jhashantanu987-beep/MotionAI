@@ -1,0 +1,51 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  @apply bg-[#f5f7fb] font-sans;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  @apply font-semibold text-gray-800;
+}
+
+.card {
+  @apply rounded-2xl shadow-md hover:shadow-lg transition-shadow duration-300;
+}
+
+.sidebar {
+  @apply bg-[#1f1f1f] text-white;
+}
+
+.sidebar-icon {
+  @apply transition-opacity duration-300;
+}
+
+.sidebar-text {
+  @apply opacity-0 transition-opacity duration-300;
+}
+
+.sidebar.open .sidebar-text {
+  @apply opacity-100;
+}
+
+.floating-panel {
+  @apply rounded-2xl shadow-lg;
+}
+
+.button {
+  @apply bg-lime-500 text-white rounded-2xl px-4 py-2 transition-transform duration-200;
+}
+
+.button:hover {
+  @apply scale-105;
+}
+
+.timeline-bar {
+  @apply relative;
+}
+
+.timeline-bar .event {
+  @apply transition-transform duration-300;
+}
