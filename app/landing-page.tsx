@@ -49,8 +49,8 @@ function useScrollReveal() {
         const rect = card.getBoundingClientRect()
         const x = e.clientX - rect.left
         const y = e.clientY - rect.top
-        ;(card as HTMLElement).style.setProperty('--mouse-x', `${x}px`)
-        ;(card as HTMLElement).style.setProperty('--mouse-y', `${y}px`)
+          ; (card as HTMLElement).style.setProperty('--mouse-x', `${x}px`)
+          ; (card as HTMLElement).style.setProperty('--mouse-y', `${y}px`)
       }) as EventListener)
     })
 
@@ -114,7 +114,7 @@ function Counter({ value }: { value: string }) {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: "-100px" })
   const [displayValue, setDisplayValue] = useState(0)
-  
+
   const numericStr = value.replace(/[^0-9.]/g, '')
   const numericValue = parseFloat(numericStr) || 0
   const isFloat = numericStr.includes('.')
@@ -145,7 +145,7 @@ export default function LandingPage() {
   useScrollReveal()
   const [activeStep, setActiveStep] = useState(0)
   const [isScrolled, setIsScrolled] = useState(false)
-  
+
   // Lead Form State
   const [formData, setFormData] = useState({ name: '', email: '', phone: '', notes: '' })
   const [formStatus, setFormStatus] = useState<{ type: 'idle' | 'loading' | 'success' | 'error', message?: string }>({ type: 'idle' })
@@ -168,13 +168,13 @@ export default function LandingPage() {
 
   const handleLeadSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    
+
     // Strict Validation
     if (!formData.name || !formData.email || !formData.phone || !formData.notes) {
       setFormStatus({ type: 'error', message: 'Please provide all details (Name, Email, Phone, and Goal) to activate the engine.' })
       return
     }
-    
+
     setFormStatus({ type: 'loading' })
     try {
       const res = await fetch(`${API_CONFIG.baseUrl}/leads`, {
@@ -182,11 +182,11 @@ export default function LandingPage() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           ...formData, // This now includes 'notes'
-          source: 'manual', 
+          source: 'manual',
           score: 0, // Backend will recalculate
         })
       })
-      
+
       const data = await res.json()
       if (data.success) {
         setFormStatus({ type: 'success', message: 'Success! Our AI will contact you on WhatsApp in < 5s.' })
@@ -206,7 +206,7 @@ export default function LandingPage() {
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
-  
+
   // Hero mouse tracking
   const heroRef = useRef<HTMLElement>(null)
   const mX = useMotionValue(0)
@@ -264,29 +264,27 @@ export default function LandingPage() {
         <div className="absolute bottom-[-10%] left-[-10%] w-[80%] h-[60%] glow-purple opacity-40 rounded-full" />
         <div className="absolute top-0 left-0 w-[40%] h-[40%] glow-orange-top opacity-30" />
         <div className="absolute top-0 right-0 w-[30%] h-[30%] glow-corner-white opacity-40" />
-        
+
         {/* Subtle grid pattern */}
-        <div 
-          className="absolute inset-0 opacity-[0.15]" 
-          style={{ 
-            backgroundImage: 'radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px)', 
-            backgroundSize: '32px 32px' 
-          }} 
+        <div
+          className="absolute inset-0 opacity-[0.15]"
+          style={{
+            backgroundImage: 'radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px)',
+            backgroundSize: '32px 32px'
+          }}
         />
       </div>
 
       {/* ═══════════════════════ NAVBAR ═══════════════════════ */}
-      <nav 
-        className={`fixed top-0 w-full z-50 transition-all duration-300 ${
-          isScrolled ? 'py-4' : 'py-6'
-        }`}
-      >
-        <div 
-          className={`flex justify-between items-center mx-auto transition-all duration-300 ${
-            isScrolled 
-              ? 'max-w-4xl px-6 py-2 bg-[#0c0c14]/80 backdrop-blur-xl border border-white/10 rounded-full shadow-[0_8px_30px_rgba(0,0,0,0.4)]' 
-              : 'max-w-7xl px-8 bg-transparent border-transparent'
+      <nav
+        className={`fixed top-0 w-full z-50 transition-all duration-300 ${isScrolled ? 'py-4' : 'py-6'
           }`}
+      >
+        <div
+          className={`flex justify-between items-center mx-auto transition-all duration-300 ${isScrolled
+              ? 'max-w-4xl px-6 py-2 bg-[#0c0c14]/80 backdrop-blur-xl border border-white/10 rounded-full shadow-[0_8px_30px_rgba(0,0,0,0.4)]'
+              : 'max-w-7xl px-8 bg-transparent border-transparent'
+            }`}
         >
           <div className="flex items-center gap-3 cursor-pointer">
             <img
@@ -303,7 +301,7 @@ export default function LandingPage() {
             <a className="nav-link text-white/50 hover:text-white transition-colors" href="#faqs">FAQs</a>
           </div>
           <div className="flex items-center gap-4">
-            <button 
+            <button
               onClick={() => router.push('/dashboard')}
               className={`rounded-full bg-[#0077F5] text-white font-bold hover:brightness-110 active:scale-95 transition-all px-6 py-2.5 text-sm shadow-lg shadow-blue-500/20`}
             >
@@ -314,7 +312,7 @@ export default function LandingPage() {
       </nav>
 
       {/* ═══════════════════════ HERO ═══════════════════════ */}
-      <section 
+      <section
         ref={heroRef}
         onMouseMove={handleMouseMove}
         className="relative px-8 pt-20 pb-32 max-w-7xl mx-auto overflow-hidden"
@@ -350,7 +348,7 @@ export default function LandingPage() {
             <div className="absolute bottom-[-10%] left-[-5%] w-[70%] h-[70%] bg-purple-600/20 rounded-full blur-[100px] -z-10" />
             <div className="absolute top-[-5%] left-[10%] w-[60%] h-[60%] bg-orange-500/10 rounded-full blur-[100px] -z-10" />
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[130%] h-[130%] bg-[#0077F5]/5 rounded-full blur-[120px] -z-10" />
-            
+
             {/* Hanging Connectivity Decor (SVG) */}
             <svg className="absolute -top-12 -left-12 w-32 h-32 text-blue-500/20 -z-10" viewBox="0 0 100 100">
               <path d="M0 50 H50 V100" fill="none" stroke="currentColor" strokeWidth="0.5" strokeDasharray="4 4" />
@@ -375,19 +373,19 @@ export default function LandingPage() {
               Trusted by leading <span className="text-[#F97316] font-bold">businesses</span> worldwide.
             </p>
           </div>
-          
+
           {/* Marquee Side (2/3) */}
           <div className="col-span-1 lg:col-span-2 relative marquee-mask overflow-hidden" data-reveal style={{ '--delay': '200ms' } as React.CSSProperties}>
             <div className="flex animate-marquee whitespace-nowrap">
               {['DentalCare Pro', 'RealEstate Plus', 'Consulting Hub', 'Tech Solutions', 'Business Growth', 'Marketing Pro',
                 'DentalCare Pro', 'RealEstate Plus', 'Consulting Hub', 'Tech Solutions', 'Business Growth', 'Marketing Pro'].map((name, i) => (
-                <span
-                  key={i}
-                  className="inline-block mx-12 text-lg font-bold text-white/20 hover:text-white transition-colors"
-                >
-                  {name}
-                </span>
-              ))}
+                  <span
+                    key={i}
+                    className="inline-block mx-12 text-lg font-bold text-white/20 hover:text-white transition-colors"
+                  >
+                    {name}
+                  </span>
+                ))}
             </div>
           </div>
         </div>
@@ -479,7 +477,7 @@ export default function LandingPage() {
           </div>
           <div className="relative" data-reveal style={{ '--delay': '300ms' } as React.CSSProperties}>
             <div className="relative rounded-2xl overflow-hidden border border-white/5 glass-panel shadow-2xl transition-all duration-700 hover:scale-[1.02]">
-              <img alt="WhatsApp Automation Interface" className="w-full h-auto" src="/images/whatsapp_automation.png" style={{filter: 'none'}} />
+              <img alt="WhatsApp Automation Interface" className="w-full h-auto" src="https://lh3.googleusercontent.com/aida/ADBb0uitIj52HVp6qfajyOeZI7JBaNw7JFZWFcEtzBiQ0hCHZPogJMU2Qx2mPo478_-C9ULLGUlokYPPhsQSC18yTa2xQBCrbwYj-lPQaYcQnilffMWviAAqodfCI7ExJvHyk3T33uW99dAKMdqwEiaK0tWX0F2-QzADEPjagrpJ3l_vpqHlO4bZH1seuTqgi4L3Aur0aSaQF4wILw3FDOxfT5osDG2n6Ce5UgRHoP0FxQSQlsjGGYK-eP24KrZTPkadxNTKsTK6Ci6G" style={{ filter: 'none' }} />
             </div>
           </div>
         </div>
@@ -490,7 +488,7 @@ export default function LandingPage() {
         <div className="grid lg:grid-cols-2 gap-24 items-center">
           <div className="order-2 lg:order-1 relative" data-reveal style={{ '--delay': '300ms' } as React.CSSProperties}>
             <div className="relative rounded-2xl overflow-hidden border border-white/5 glass-panel shadow-2xl transition-all duration-700 hover:scale-[1.02]">
-              <img alt="Automated Follow-ups interface" className="w-full h-auto" src="/images/automated_followups.png" style={{filter: 'none'}} />
+              <img alt="Automated Follow-ups interface" className="w-full h-auto" src="https://lh3.googleusercontent.com/aida/ADBb0uiGImwQQSEqekbK3BEpYoA-tkvy97SkK9Bpf9XxmYvuM44ZOVcJ0oyAptUUbWjbzird4ZOhXsUXa8E6cT5bsjcK-Yjnbx881bcsYHoDVhOPCjjm9jOcxVljiofSo1oj8q58kW_NuTVVRsQXsmKOj3v1PotsAms5EFE08VT5BfSAk58bLXgTBpFP3VywkOnosgOqEzDrUDgKXC0QnL9gI9yiEwWwoVSoWREcrdGK-EFJREs5UFrvkTXR_jg2ofim_WLCUfZluOvFSg" style={{ filter: 'none' }} />
             </div>
           </div>
           <div className="order-1 lg:order-2" data-reveal>
@@ -536,7 +534,7 @@ export default function LandingPage() {
           </div>
           <div className="relative" data-reveal style={{ '--delay': '300ms' } as React.CSSProperties}>
             <div className="relative rounded-2xl overflow-hidden border border-white/5 glass-panel shadow-2xl transition-all duration-700 hover:scale-[1.02]">
-              <img alt="Lead activity analytics chart" className="w-full h-auto" src="/images/सक्रिय लीड वृद्धि और नये संपर्क.png" style={{filter: 'none'}} />
+              <img alt="Lead activity analytics chart" className="w-full h-auto" src="https://lh3.googleusercontent.com/aida/ADBb0ujKR-31jBGutKwMcEdPl_NZc54HsdzyxpGx1U2uQHseFgTzzPCMjgYWRcB1Pr6F4byf44fe3vxcVboN9LnpJhloPYT3-v4Fsd1vh6NoCKoM52FslQl6to8tgiWXdrWssnxcUAZ478-VjDSFMf5w3UCkTYAd8lquw0RcYXnk-zI41xZISI1c0PwZuzHmhqtMueK0RuQEkA5cU7jJIjZFz1UVSM2WpSInBL100A5EongrJ4Sdl9QSy42kutFQfCQx3iqKypCV4VP4WA" style={{ filter: 'none' }} />
             </div>
           </div>
         </div>
@@ -547,7 +545,7 @@ export default function LandingPage() {
         <div className="max-w-7xl mx-auto px-8 mb-16 sm:mb-24">
           <div className="flex flex-col items-center text-center gap-4">
             <div className="px-4 py-1.5 rounded-full bg-blue-500/10 border border-blue-500/20" data-reveal>
-               <span className="text-[10px] font-black uppercase tracking-[0.2em] text-blue-400">Wall of Proof</span>
+              <span className="text-[10px] font-black uppercase tracking-[0.2em] text-blue-400">Wall of Proof</span>
             </div>
             <h2 className="text-4xl sm:text-6xl font-black text-white tracking-tighter" data-reveal style={{ '--delay': '100ms' } as React.CSSProperties}>
               Engineered for <span className="text-blue-500">Absolute Results</span>
@@ -613,11 +611,11 @@ export default function LandingPage() {
                     <Counter value={rotatingStats[activeStatIndex].val} />
                   </div>
                 </div>
-                
+
                 <h3 className="text-3xl md:text-4xl font-bold text-white mb-4 tracking-tight">
                   {rotatingStats[activeStatIndex].label}
                 </h3>
-                
+
                 <p className="text-xl text-[#888888] max-w-2xl font-medium leading-relaxed">
                   {rotatingStats[activeStatIndex].desc}
                 </p>
@@ -630,8 +628,8 @@ export default function LandingPage() {
       {/* ═══════════════════════ SECURITY BADGES ═══════════════════════ */}
       <section className="py-32 px-4 sm:px-6 relative overflow-hidden bg-[#0a0a0f] border-y border-white/[0.06]">
         {/* Animated Background Grid */}
-        <div className="absolute inset-0 z-0 opacity-20 pointer-events-none" 
-             style={{ backgroundImage: 'linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px)', backgroundSize: '40px 40px' }}>
+        <div className="absolute inset-0 z-0 opacity-20 pointer-events-none"
+          style={{ backgroundImage: 'linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px)', backgroundSize: '40px 40px' }}>
           <div className="absolute inset-0 bg-gradient-to-b from-[#06060c] via-transparent to-[#06060c]" />
         </div>
         {/* Radar Glow */}
@@ -649,8 +647,8 @@ export default function LandingPage() {
               { icon: Globe, title: 'GDPR Compliant', desc: 'European data protection', color: 'text-purple-400', shadow: 'hover:shadow-[0_0_30px_rgba(192,132,252,0.15)]' },
               { icon: Server, title: '99.9% Uptime', desc: 'Enterprise SLA guarantee', color: 'text-orange-400', shadow: 'hover:shadow-[0_0_30px_rgba(251,146,60,0.15)]' },
             ].map(({ icon: Icon, title, desc, color, shadow }, i) => (
-              <motion.div 
-                key={i} 
+              <motion.div
+                key={i}
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
@@ -688,30 +686,30 @@ export default function LandingPage() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-center">
             {[
               {
-                name: 'Setup', sub: 'One-time activation fee to launch the system', price: '$300–$500', period: 'One-time fee',
+                name: 'Setup', sub: 'One-time activation fee to launch the system', price: '$300', period: 'One-time fee',
                 cta: 'Get Started', ctaStyle: 'border', popular: false,
                 features: ['Demand strategy & funnel setup', 'Full campaign and integration build', 'Lead capture activation', 'System onboarding'],
                 glow: false,
               },
               {
-                name: 'Monthly', sub: 'Ongoing optimization & campaign management', price: '$1K–$3K', period: '/month',
+                name: 'Monthly', sub: 'Ongoing optimization & campaign management', price: '$2K', period: '/month',
                 cta: 'Get Started', ctaStyle: 'gradient', popular: true,
                 features: ['Lead nurturing and reporting', 'Creative refreshes', 'Performance tuning', 'Follow-up automation'],
                 glow: true,
               },
               {
-                name: 'Performance', sub: 'Aligned incentives for growth', price: '$10–$50 per booked lead', period: 'or 5–15% of revenue',
+                name: 'Performance', sub: 'Aligned incentives for growth', price: '$25 per booked lead', period: 'or 10% of revenue',
                 cta: 'Contact Sales', ctaStyle: 'border', popular: false,
                 features: ['Pay per booked lead', 'Revenue share option', 'No upfront revenue risk', 'Aligned growth targets'],
                 glow: false,
               },
             ].map(({ name, sub, price, period, cta, ctaStyle, popular, features, glow }, i) => (
-              <motion.div 
-                key={i} 
-                whileHover={{ scale: 1.02, y: -5 }} 
+              <motion.div
+                key={i}
+                whileHover={{ scale: 1.02, y: -5 }}
                 transition={{ type: "spring", stiffness: 300 }}
-                className={`relative group ${popular ? 'md:-mt-4 md:mb-4' : ''}`} 
-                data-reveal 
+                className={`relative group ${popular ? 'md:-mt-4 md:mb-4' : ''}`}
+                data-reveal
                 style={{ '--delay': `${i * 100}ms` } as React.CSSProperties}
               >
                 {popular && (
@@ -867,7 +865,7 @@ export default function LandingPage() {
           <p className="text-center text-lg font-bold text-white mb-5">Enter your number and get an instant WhatsApp reply</p>
           <div className="rounded-2xl border border-white/10 bg-white/[0.04] backdrop-blur-xl p-7">
             {formStatus.type === 'success' ? (
-              <motion.div 
+              <motion.div
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
                 className="text-center py-8 space-y-4"
@@ -877,7 +875,7 @@ export default function LandingPage() {
                 </div>
                 <h4 className="text-xl font-bold text-white">System Activated</h4>
                 <p className="text-sm text-gray-400 leading-relaxed font-medium">{formStatus.message}</p>
-                <button 
+                <button
                   onClick={() => setFormStatus({ type: 'idle' })}
                   className="text-xs font-bold text-[#0077F5] uppercase tracking-widest hover:underline"
                 >
@@ -918,7 +916,7 @@ export default function LandingPage() {
                   onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
                   className="w-full px-4 py-3.5 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-blue-500/60 transition-all font-medium resize-none"
                 />
-                
+
                 {formStatus.type === 'error' && (
                   <p className="text-xs text-rose-500 font-bold bg-rose-500/10 p-3 rounded-lg border border-rose-500/20">
                     ⚠️ {formStatus.message}
@@ -953,7 +951,7 @@ export default function LandingPage() {
       <footer className="border-t border-white/[0.06] bg-[#020202] py-20 px-6 relative overflow-hidden">
         {/* Subtle background glow */}
         <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-[#efb0ff]/5 rounded-full blur-[100px] pointer-events-none"></div>
-        
+
         <div className="max-w-6xl mx-auto relative z-10">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-12 mb-16">
             <div className="col-span-1 md:col-span-2 lg:col-span-2">
@@ -969,7 +967,7 @@ export default function LandingPage() {
                 The ultimate engine for modern digital craftsmanship that captures and qualifies prospects while you sleep.
               </p>
             </div>
-            
+
             {[
               { title: 'AI Revenue System', links: ['Demand Engine', 'AI Sales Agent', 'Booking System', 'Follow-up Automation', 'Revenue Analytics'] },
               { title: 'Performance', links: ['Ad Optimization', 'Lead Conversion', 'Funnel Tracking', 'ROAS Insights', 'AI Optimization'] },
@@ -986,12 +984,12 @@ export default function LandingPage() {
               </div>
             ))}
           </div>
-          
+
           <div className="flex flex-col md:flex-row justify-between items-center border-t border-white/10 pt-8 gap-4">
             <div className="text-center md:text-left text-[#8a919c] text-sm font-medium">
               © 2026 KLARA AI — AI-Powered Revenue Systems
             </div>
-            
+
             <div className="flex gap-4">
               <a href="#" className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-[#8a919c] hover:bg-white/10 hover:text-white transition-all">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
