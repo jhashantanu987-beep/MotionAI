@@ -3,11 +3,16 @@ const { setStoreMode } = require('../services/dataService')
 
 const connectDB = async () => {
   const uri = process.env.MONGODB_URI
+  const forceLocal = process.env.USE_LOCAL_STORAGE === 'true'
 
-  if (!uri) {
-    console.error('❌ MONGODB_URI is not defined in .env file')
+  if (forceLocal || !uri) {
+    if (forceLocal) {
+      console.log('🚀 Production Override: USE_LOCAL_STORAGE=true detected.')
+    } else {
+      console.error('❌ MONGODB_URI is not defined in .env file')
+    }
     setStoreMode('file')
-    console.log('📂 Fallback: Local File Storage activated.')
+    console.log('📂 Local File Storage activated as primary engine.')
     return
   }
 
