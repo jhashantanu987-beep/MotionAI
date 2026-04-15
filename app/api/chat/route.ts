@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server'
+import { BACKEND_URL } from '@/lib/backendClient'
 
 const pricingResponse = 'Our packages start at $2,500 setup plus $4,500/month. Enterprise and performance tiers scale with volume, ROI tracking, and priority onboarding.'
 const bookingResponse = 'Your bookable pipeline is active: clients are scheduling calls, follow-ups are queued, and the next open slots are in the early afternoon. Keep the sequence moving to reduce no-shows.'
@@ -9,7 +10,7 @@ export async function POST(request: Request) {
     const { message, leadId } = body;
 
     // Proxy the request to our real Express AI Engine
-    const response = await fetch('http://127.0.0.1:5000/api/leads/public-chat', {
+    const response = await fetch(`${BACKEND_URL}/api/leads/public-chat`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ message, leadId }),

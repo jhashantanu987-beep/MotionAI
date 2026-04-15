@@ -4,7 +4,7 @@
  * The Express server must be running at http://localhost:5000
  */
 
-export const BACKEND_URL = process.env.CRM_BACKEND_URL || 'http://localhost:5000'
+export const BACKEND_URL = process.env.CRM_BACKEND_URL || 'https://klara-ai-backend.onrender.com'
 
 /**
  * A reusable fetch wrapper that forwards a Next.js request to the Express backend.
