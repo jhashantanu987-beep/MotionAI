@@ -1,7 +1,7 @@
-﻿'use client'
+'use client'
 
 import { Suspense } from 'react'
-import TopNavigation from './TopNavigation'
+import GlobalHeader from './components/GlobalHeader'
 
 export default function DashboardLayout({
   children,
@@ -9,16 +9,19 @@ export default function DashboardLayout({
   children: React.ReactNode
 }) {
   return (
-    <div className="min-h-screen bg-[#0b0f17] text-[#e5e7eb] flex flex-col">
-      {/* Top Navigation Bar */}
-      <Suspense fallback={<div className="h-32 bg-[#1a0a2e] border-b border-[#00d9ff]/30" />}>
-        <TopNavigation />
+    <div className="min-h-screen bg-[#050505] text-[#e5e7eb] flex flex-col pt-20">
+      
+      {/* Horizontal Top Navigation */}
+      <Suspense fallback={<div className="h-20 bg-[#050505] animate-pulse" />}>
+        <GlobalHeader />
       </Suspense>
 
-      {/* Content */}
-      <div className="flex-1 p-6">
-        {children}
-      </div>
+      {/* Main Content Area */}
+      <main className="flex-1 overflow-auto relative">
+        <Suspense fallback={<div className="flex-1 h-screen bg-[#050505] animate-pulse" />}>
+          {children}
+        </Suspense>
+      </main>
     </div>
   )
 }

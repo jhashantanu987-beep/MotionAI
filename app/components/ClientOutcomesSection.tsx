@@ -5,26 +5,26 @@ import { motion } from 'framer-motion'
 
 const outcomes = [
   {
-    title: 'More Qualified Leads',
-    description: 'AI-powered lead scoring ensures every prospect meets your ideal customer profile.',
+    title: 'More leads',
+    description: 'Automated demand generation brings in qualified prospects 24/7.',
     icon: TrendingUp,
     metric: '3-5x increase'
   },
   {
-    title: 'Faster Response Time',
-    description: 'Instant AI engagement captures intent while competitors are still waking up.',
+    title: 'Faster response time',
+    description: 'AI replies in under 5 seconds, capturing hot leads before competitors.',
     icon: Zap,
     metric: '<5 seconds'
   },
   {
-    title: 'More Bookings',
-    description: 'Automated follow-up sequences convert interested prospects into scheduled meetings.',
+    title: 'More bookings',
+    description: 'Automated qualification and booking increases conversion rates.',
     icon: Calendar,
     metric: '2-3x more meetings'
   },
   {
-    title: 'Fewer Lost Customers',
-    description: 'Proactive outreach and engagement prevents prospects from slipping through the cracks.',
+    title: 'Fewer lost customers',
+    description: 'Follow-up sequences and no-show recovery prevent lead leakage.',
     icon: Shield,
     metric: '60% reduction'
   }

@@ -32,94 +32,8 @@ export default function AIChatbot() {
   const [input, setInput] = useState('')
   const [messages, setMessages] = useState<Message[]>(initialMessages)
   const [isSending, setIsSending] = useState(false)
+  const [leadId, setLeadId] = useState<string | null>(null)
   const containerRef = useRef<HTMLDivElement | null>(null)
-
-  const classifyIntent = (query: string) => {
-    const lowerQuery = query.toLowerCase()
-
-    // Business questions
-    if (lowerQuery.includes('lead') || lowerQuery.includes('prospect')) return 'leads'
-    if (lowerQuery.includes('revenue') || lowerQuery.includes('money') || lowerQuery.includes('sales')) return 'revenue'
-    if (lowerQuery.includes('booking') || lowerQuery.includes('appointment') || lowerQuery.includes('call')) return 'bookings'
-    if (lowerQuery.includes('conversion') || lowerQuery.includes('funnel')) return 'conversion'
-    if (lowerQuery.includes('optimize') || lowerQuery.includes('improve') || lowerQuery.includes('ads')) return 'optimize'
-    if (lowerQuery.includes('price') || lowerQuery.includes('cost') || lowerQuery.includes('pricing')) return 'pricing'
-    if (lowerQuery.includes('help') || lowerQuery.includes('support') || lowerQuery.includes('how')) return 'help'
-
-    // Unrelated questions
-    if (lowerQuery.includes('ronaldo') || lowerQuery.includes('messi') ||
-        lowerQuery.includes('football') || lowerQuery.includes('soccer') ||
-        lowerQuery.includes('weather') || lowerQuery.includes('food') ||
-        lowerQuery.includes('movie') || lowerQuery.includes('music')) return 'unrelated'
-
-    return 'general'
-  }
-
-  const generateResponse = (query: string) => {
-    const intent = classifyIntent(query)
-
-    switch (intent) {
-      case 'leads':
-        return {
-          text: `You have 1,542 leads this month (+18%). Top sources: Meta (45%), Google (32%), TikTok (23%). 23 are high-intent and ready for follow-up.`,
-          quickActions: ['Show lead details', 'Create campaign', 'Export leads']
-        }
-
-      case 'revenue':
-        return {
-          text: `Revenue is strong and trending higher. Breakdown: Monthly retainer $30k, Performance $12.8k, Setup fees $2.5k.`,
-          quickActions: ['Revenue breakdown', 'Growth forecast', 'Client profitability']
-        }
-
-      case 'bookings':
-        return {
-          text: `18 active clients, 3 services running. Next available slots: 10 AM, 11:30 AM, 2 PM. 5 follow-ups scheduled this week.`,
-          quickActions: ['Book consultation', 'View calendar', 'Client pipeline']
-        }
-
-      case 'conversion':
-        return {
-          text: `67% lead-to-client conversion rate. Funnel: 2,450 visits → 1,542 leads → 184 qualified → 18 clients. Top drop-off at qualification stage.`,
-          quickActions: ['Optimize funnel', 'Lead scoring', 'Follow-up automation']
-        }
-
-      case 'optimize':
-        return {
-          text: `Cost per lead: $12.50 (-8%). ROAS: 4.2x. AI recommends: Increase TikTok budget by 25%, optimize Meta targeting for enterprise accounts.`,
-          quickActions: ['Run optimization', 'Ad performance', 'Budget allocation']
-        }
-
-      case 'pricing':
-        return {
-          text: `Plans start at $2,500 setup + $4,500/month. Custom enterprise options available. ROI typically 3-5x within 6 months.`,
-          quickActions: ['View pricing', 'Calculate ROI', 'Start free trial']
-        }
-
-      case 'help':
-        return {
-          text: `I can help with: Lead management, Revenue tracking, Conversion optimization, Ad performance, Client onboarding, and System automation.`,
-          quickActions: ['Dashboard tour', 'Setup guide', 'Contact support']
-        }
-
-      case 'unrelated':
-        const casualResponses = [
-          "Interesting question, but let's focus on your business. You have 1,542 leads waiting - want me to prioritize the high-intent ones?",
-          "I can chat about anything, but I'm best at growing your revenue. Your conversion rate is at 67% - want to push it higher?",
-          "That's outside my expertise, but I excel at lead generation. You have 23 hot leads ready to convert right now.",
-          "Fun topic! But let's talk business - your MRR is up 28%. Want to see what's driving that growth?"
-        ]
-        return {
-          text: casualResponses[Math.floor(Math.random() * casualResponses.length)],
-          quickActions: ['Show leads', 'Revenue stats', 'Optimize pipeline']
-        }
-
-      default:
-        return {
-          text: `I'm here to help with your business growth. Ask about leads, revenue, conversions, or optimization.`,
-          quickActions: ['Show my leads', 'Revenue stats', 'Optimize ads']
-        }
-    }
-  }
 
   const handleSend = async () => {
     const trimmed = input.trim()
@@ -139,24 +53,27 @@ export default function AIChatbot() {
       const response = await fetch('/api/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ message: trimmed })
+        body: JSON.stringify({ message: trimmed, leadId })
       })
       const data = await response.json()
+      
+      // Update session leadId for memory
+      if (data.leadId) setLeadId(data.leadId)
+
       const reply: Message = {
         id: Date.now() + 2,
         role: 'assistant',
-        text: data.text || 'Sorry, I could not fetch a response.',
-        quickActions: data.quickActions || ['Show metrics', 'Review funnel']
+        text: data.text || 'Connection optimized. Ready for input.',
+        quickActions: data.quickActions
       }
       setMessages((prev) => [...prev, reply])
     } catch (error) {
       console.error(error)
-      const fallback = generateResponse(trimmed)
       const reply: Message = {
         id: Date.now() + 3,
         role: 'assistant',
-        text: fallback.text,
-        quickActions: fallback.quickActions
+        text: 'Neural link intermittent. Retrying synchronization...',
+        quickActions: ['Retry connection']
       }
       setMessages((prev) => [...prev, reply])
     } finally {
@@ -178,24 +95,26 @@ export default function AIChatbot() {
       const response = await fetch('/api/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ message: action })
+        body: JSON.stringify({ message: action, leadId })
       })
       const data = await response.json()
+      
+      if (data.leadId) setLeadId(data.leadId)
+
       const reply: Message = {
         id: Date.now() + 2,
         role: 'assistant',
-        text: data.text || 'Sorry, I could not fetch a response.',
-        quickActions: data.quickActions || ['Show metrics', 'Review funnel']
+        text: data.text || 'Connection optimized. Ready for input.',
+        quickActions: data.quickActions
       }
       setMessages((prev) => [...prev, reply])
     } catch (error) {
       console.error(error)
-      const fallback = generateResponse(action)
       const reply: Message = {
         id: Date.now() + 3,
         role: 'assistant',
-        text: fallback.text,
-        quickActions: fallback.quickActions
+        text: 'Neural link intermittent. Retrying synchronization...',
+        quickActions: ['Retry connection']
       }
       setMessages((prev) => [...prev, reply])
     } finally {
@@ -211,7 +130,7 @@ export default function AIChatbot() {
   const unreadCount = useMemo(() => messages.filter((msg) => msg.role === 'assistant').length, [messages])
 
   return (
-    <div className="fixed right-6 bottom-6 z-50 flex flex-col items-end">
+    <div className="fixed right-6 bottom-6 z-[150] flex flex-col items-end">
       <AnimatePresence>
         {open && (
           <motion.div

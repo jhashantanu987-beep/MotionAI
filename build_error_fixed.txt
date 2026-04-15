@@ -1,0 +1,145 @@
+﻿
+> klara-ai-saas-ui@0.1.0 build
+> next build
+
+  ▲ Next.js 14.2.5
+  - Environments: .env.local
+
+   Creating an optimized production build ...
+ ✓ Compiled successfully
+   Linting and checking validity of types ...
+   Collecting page data ...
+   Generating static pages (0/41) ...
+node.exe : [BackendClient] Failed to reach Express backend at /api/leads/analytics: q [Error]: Dynamic server usage: 
+no-store fetch http://localhost:5000/api/leads/analytics /api/revenue-analytics
+At line:1 char:1
++ & "C:\Program Files\nodejs/node.exe" "C:\Program Files\nodejs/node_mo ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: ([BackendClient]...venue-analytics:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+    at C:\Users\shantanu shaswat\OneDrive\Desktop\notion 
+ai\node_modules\next\dist\compiled\next-server\app-route.runtime.prod.js:6:35328
+    at C:\Users\shantanu shaswat\OneDrive\Desktop\notion ai\node_modules\next\dist\server\lib\trace\tracer.js:140:36
+    at NoopContextManager.with (C:\Users\shantanu shaswat\OneDrive\Desktop\notion 
+ai\node_modules\next\dist\compiled\@opentelemetry\api\index.js:1:7062)
+    at ContextAPI.with (C:\Users\shantanu shaswat\OneDrive\Desktop\notion 
+ai\node_modules\next\dist\compiled\@opentelemetry\api\index.js:1:518)
+    at NoopTracer.startActiveSpan (C:\Users\shantanu shaswat\OneDrive\Desktop\notion 
+ai\node_modules\next\dist\compiled\@opentelemetry\api\index.js:1:18093)
+    at ProxyTracer.startActiveSpan (C:\Users\shantanu shaswat\OneDrive\Desktop\notion 
+ai\node_modules\next\dist\compiled\@opentelemetry\api\index.js:1:18854)
+    at C:\Users\shantanu shaswat\OneDrive\Desktop\notion ai\node_modules\next\dist\server\lib\trace\tracer.js:122:103
+    at NoopContextManager.with (C:\Users\shantanu shaswat\OneDrive\Desktop\notion 
+ai\node_modules\next\dist\compiled\@opentelemetry\api\index.js:1:7062)
+    at ContextAPI.with (C:\Users\shantanu shaswat\OneDrive\Desktop\notion 
+ai\node_modules\next\dist\compiled\@opentelemetry\api\index.js:1:518)
+    at NextTracerImpl.trace (C:\Users\shantanu shaswat\OneDrive\Desktop\notion 
+ai\node_modules\next\dist\server\lib\trace\tracer.js:122:28) {
+  description: 'no-store fetch http://localhost:5000/api/leads/analytics /api/revenue-analytics',
+  digest: 'DYNAMIC_SERVER_USAGE'
+}
+   Generating static pages (10/41) 
+   Generating static pages (20/41) 
+   Generating static pages (30/41) 
+[BackendClient] Failed to reach Express backend at /api/ai/ugc-performance: q [Error]: Dynamic server usage: no-store 
+fetch http://localhost:5000/api/ai/ugc-performance /api/ai-ugc-creative-engine
+    at C:\Users\shantanu shaswat\OneDrive\Desktop\notion 
+ai\node_modules\next\dist\compiled\next-server\app-route.runtime.prod.js:6:35328
+    at C:\Users\shantanu shaswat\OneDrive\Desktop\notion ai\node_modules\next\dist\server\lib\trace\tracer.js:140:36
+    at NoopContextManager.with (C:\Users\shantanu shaswat\OneDrive\Desktop\notion 
+ai\node_modules\next\dist\compiled\@opentelemetry\api\index.js:1:7062)
+    at ContextAPI.with (C:\Users\shantanu shaswat\OneDrive\Desktop\notion 
+ai\node_modules\next\dist\compiled\@opentelemetry\api\index.js:1:518)
+    at NoopTracer.startActiveSpan (C:\Users\shantanu shaswat\OneDrive\Desktop\notion 
+ai\node_modules\next\dist\compiled\@opentelemetry\api\index.js:1:18093)
+    at ProxyTracer.startActiveSpan (C:\Users\shantanu shaswat\OneDrive\Desktop\notion 
+ai\node_modules\next\dist\compiled\@opentelemetry\api\index.js:1:18854)
+    at C:\Users\shantanu shaswat\OneDrive\Desktop\notion ai\node_modules\next\dist\server\lib\trace\tracer.js:122:103
+    at NoopContextManager.with (C:\Users\shantanu shaswat\OneDrive\Desktop\notion 
+ai\node_modules\next\dist\compiled\@opentelemetry\api\index.js:1:7062)
+    at ContextAPI.with (C:\Users\shantanu shaswat\OneDrive\Desktop\notion 
+ai\node_modules\next\dist\compiled\@opentelemetry\api\index.js:1:518)
+    at NextTracerImpl.trace (C:\Users\shantanu shaswat\OneDrive\Desktop\notion 
+ai\node_modules\next\dist\server\lib\trace\tracer.js:122:28) {
+  description: 'no-store fetch http://localhost:5000/api/ai/ugc-performance /api/ai-ugc-creative-engine',
+  digest: 'DYNAMIC_SERVER_USAGE'
+}
+[BackendClient] Failed to reach Express backend at /api/campaigns/performance: q [Error]: Dynamic server usage: 
+no-store fetch http://localhost:5000/api/campaigns/performance /api/ai-ad-performance-engine/performance
+    at C:\Users\shantanu shaswat\OneDrive\Desktop\notion 
+ai\node_modules\next\dist\compiled\next-server\app-route.runtime.prod.js:6:35328
+    at C:\Users\shantanu shaswat\OneDrive\Desktop\notion ai\node_modules\next\dist\server\lib\trace\tracer.js:140:36
+    at NoopContextManager.with (C:\Users\shantanu shaswat\OneDrive\Desktop\notion 
+ai\node_modules\next\dist\compiled\@opentelemetry\api\index.js:1:7062)
+    at ContextAPI.with (C:\Users\shantanu shaswat\OneDrive\Desktop\notion 
+ai\node_modules\next\dist\compiled\@opentelemetry\api\index.js:1:518)
+    at NoopTracer.startActiveSpan (C:\Users\shantanu shaswat\OneDrive\Desktop\notion 
+ai\node_modules\next\dist\compiled\@opentelemetry\api\index.js:1:18093)
+    at ProxyTracer.startActiveSpan (C:\Users\shantanu shaswat\OneDrive\Desktop\notion 
+ai\node_modules\next\dist\compiled\@opentelemetry\api\index.js:1:18854)
+    at C:\Users\shantanu shaswat\OneDrive\Desktop\notion ai\node_modules\next\dist\server\lib\trace\tracer.js:122:103
+    at NoopContextManager.with (C:\Users\shantanu shaswat\OneDrive\Desktop\notion 
+ai\node_modules\next\dist\compiled\@opentelemetry\api\index.js:1:7062)
+    at ContextAPI.with (C:\Users\shantanu shaswat\OneDrive\Desktop\notion 
+ai\node_modules\next\dist\compiled\@opentelemetry\api\index.js:1:518)
+    at NextTracerImpl.trace (C:\Users\shantanu shaswat\OneDrive\Desktop\notion 
+ai\node_modules\next\dist\server\lib\trace\tracer.js:122:28) {
+  description: 'no-store fetch http://localhost:5000/api/campaigns/performance 
+/api/ai-ad-performance-engine/performance',
+  digest: 'DYNAMIC_SERVER_USAGE'
+}
+ ✓ Generating static pages (41/41)
+   Finalizing page optimization ...
+   Collecting build traces ...
+
+Route (app)                                          Size     First Load JS
+┌ ○ /                                                145 B           157 kB
+├ ○ /_not-found                                      871 B            88 kB
+├ ƒ /api/ai-ad-performance-engine/budget             0 B                0 B
+├ ƒ /api/ai-ad-performance-engine/campaigns          0 B                0 B
+├ ƒ /api/ai-ad-performance-engine/creatives          0 B                0 B
+├ ○ /api/ai-ad-performance-engine/insights           0 B                0 B
+├ ○ /api/ai-ad-performance-engine/metrics            0 B                0 B
+├ ƒ /api/ai-ad-performance-engine/performance        0 B                0 B
+├ ƒ /api/ai-ugc-creative-engine                      0 B                0 B
+├ ƒ /api/ai-ugc-creative-engine/generate             0 B                0 B
+├ ○ /api/ai-ugc-creative-engine/insights             0 B                0 B
+├ ƒ /api/ai-ugc-creative-engine/library              0 B                0 B
+├ ○ /api/ai-ugc-creative-engine/performance          0 B                0 B
+├ ƒ /api/ai-ugc-creative-engine/scheduler            0 B                0 B
+├ ƒ /api/chat                                        0 B                0 B
+├ ƒ /api/clients                                     0 B                0 B
+├ ○ /api/conversion                                  0 B                0 B
+├ ○ /api/funnel                                      0 B                0 B
+├ ○ /api/insights                                    0 B                0 B
+├ ƒ /api/leads                                       0 B                0 B
+├ ○ /api/metrics                                     0 B                0 B
+├ ○ /api/response-time                               0 B                0 B
+├ ○ /api/revenue                                     0 B                0 B
+├ ƒ /api/revenue-analytics                           0 B                0 B
+├ ○ /api/schedule                                    0 B                0 B
+├ ○ /api/stats                                       0 B                0 B
+├ ○ /api/suggested-knowledge                         0 B                0 B
+├ ○ /api/tasks                                       0 B                0 B
+├ ○ /api/team-members                                0 B                0 B
+├ ○ /api/workflow-columns                            0 B                0 B
+├ ○ /api/workflow-tasks                              0 B                0 B
+├ ○ /collapsible-sidebar                             2.1 kB         89.2 kB
+├ ƒ /dashboard                                       8.54 kB         157 kB
+├ ○ /dashboard/ai-ad-performance-engine              8.56 kB         152 kB
+├ ○ /dashboard/ai-ad-performance-engine/performance  0 B                0 B
+├ ○ /dashboard/ai-ugc-creative-engine                15.4 kB         111 kB
+├ ○ /dashboard/revenue-analytics                     8.31 kB         104 kB
+├ ○ /dashboard/workspace                             651 B           146 kB
+└ ○ /landing                                         145 B           157 kB
++ First Load JS shared by all                        87.1 kB
+  ├ chunks/23-611fd7658abfa47b.js                    31.5 kB
+  ├ chunks/fd9d1056-ac988bb1b10b9c51.js              53.6 kB
+  └ other shared chunks (total)                      1.95 kB
+
+
+○  (Static)   prerendered as static content
+ƒ  (Dynamic)  server-rendered on demand
+
+

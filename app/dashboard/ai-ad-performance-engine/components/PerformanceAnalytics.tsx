@@ -1,7 +1,8 @@
 'use client'
 
 import { useQuery } from '@tanstack/react-query'
-import { BarChart3, TrendingUp, TrendingDown, Calendar, Target, Eye, MousePointer, DollarSign } from 'lucide-react'
+import { BarChart3, TrendingUp, DollarSign, Target, MousePointer, Activity } from 'lucide-react'
+import { API_CONFIG } from '@/app/config/api'
 
 interface PerformanceData {
   platformBreakdown: {
@@ -34,158 +35,87 @@ interface PerformanceData {
 }
 
 export default function PerformanceAnalytics() {
-  const { data: performanceData, isLoading } = useQuery({
+  const { data: perfResponse, isLoading } = useQuery({
     queryKey: ['ad-performance-analytics'],
     queryFn: async () => {
-      const response = await fetch('/api/ai-ad-performance-engine/performance')
+      const response = await fetch(`${API_CONFIG.baseUrl}/campaigns/performance`)
       if (!response.ok) throw new Error('Failed to fetch performance data')
-      return response.json() as Promise<PerformanceData>
+      return response.json()
     },
     refetchInterval: 30000,
   })
 
-  const getPlatformIcon = (platform: string) => {
-    switch (platform.toLowerCase()) {
-      case 'google': return '🔍'
-      case 'facebook': return '📘'
-      case 'linkedin': return '💼'
-      case 'tiktok': return '🎵'
-      default: return '📊'
-    }
-  }
+  const overview = perfResponse?.overview || { totalSpend: 0, totalRevenue: 0, totalConversions: 0, totalImpressions: 0, avgRoas: 0, activeCampaigns: 0 }
 
   return (
-    <div className="bg-gradient-to-br from-[#1a0a2e] to-[#0a0a0a] rounded-2xl shadow-2xl shadow-[#00d9ff]/20 border border-[#00d9ff]/50 hover:border-[#00d9ff] transition-all p-6">
-      <div className="flex items-center justify-between mb-6">
+    <div className="bg-[#121212] rounded-[3rem] border border-white/5 shadow-2xl p-10 relative overflow-hidden group/analytics">
+      <div className="flex items-center justify-between mb-12 relative z-10">
         <div>
-          <h2 className="text-xl font-bold text-gray-900">Performance Analytics</h2>
-          <p className="text-gray-600 mt-1">Detailed insights into your ad performance</p>
-        </div>
-
-        <div className="flex items-center gap-2">
-          <select className="px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
-            <option>Last 7 days</option>
-            <option>Last 30 days</option>
-            <option>Last 90 days</option>
-            <option>Custom range</option>
-          </select>
+          <h2 className="text-3xl font-black text-[#F9FAFB] tracking-tight">Market Resonance</h2>
+          <p className="text-[#8a919c] mt-1 text-sm font-black uppercase tracking-[0.2em] text-[10px]">Macro-Level Yield Analysis</p>
         </div>
       </div>
 
       {isLoading ? (
-        <div className="flex items-center justify-center py-12">
-          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500"></div>
+        <div className="flex items-center justify-center py-20">
+          <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-emerald-500"></div>
         </div>
       ) : (
-        <div className="space-y-6">
-          {/* Platform Breakdown */}
-          <div>
-            <h3 className="text-lg font-semibold text-gray-900 mb-4">Platform Performance</h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {performanceData?.platformBreakdown.map((platform, index) => (
-                <div key={index} className="p-4 border border-gray-200 rounded-xl hover:shadow-md transition">
-                  <div className="flex items-center gap-3 mb-3">
-                    <span className="text-2xl">{getPlatformIcon(platform.platform)}</span>
-                    <div>
-                      <h4 className="font-semibold text-gray-900 capitalize">{platform.platform}</h4>
-                      <p className="text-sm text-gray-600">ROAS: {platform.roas}x</p>
-                    </div>
-                  </div>
-
-                  <div className="grid grid-cols-2 gap-3 text-sm">
-                    <div>
-                      <p className="text-gray-600">Spend</p>
-                      <p className="font-semibold text-gray-900">${platform.spend.toLocaleString()}</p>
-                    </div>
-                    <div>
-                      <p className="text-gray-600">Impressions</p>
-                      <p className="font-semibold text-gray-900">{platform.impressions.toLocaleString()}</p>
-                    </div>
-                    <div>
-                      <p className="text-gray-600">Clicks</p>
-                      <p className="font-semibold text-gray-900">{platform.clicks.toLocaleString()}</p>
-                    </div>
-                    <div>
-                      <p className="text-gray-600">CTR</p>
-                      <p className="font-semibold text-gray-900">{platform.ctr}%</p>
-                    </div>
-                  </div>
+        <div className="space-y-12">
+          {/* Main Analytics Strip */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
+            {/* Chart 1: Leads vs Conversions */}
+            <div className="bg-[#0A0A0A] border border-white/5 rounded-[2.5rem] p-10 relative overflow-hidden group/chart">
+               <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-transparent"></div>
+               <div className="flex items-center justify-between mb-10 relative z-10">
+                  <h3 className="text-[10px] font-black uppercase tracking-[0.3em] text-[#8a919c] flex items-center gap-3">
+                    <div className="w-1.5 h-1.5 rounded-full bg-blue-500 shadow-[0_0_8px_rgba(59,130,246,0.6)]"></div>
+                    Leads vs Conversions
+                  </h3>
+                  <Target className="w-5 h-5 text-[#3B82F6]" />
+               </div>
+               <div className="h-64 flex flex-col items-center justify-center border-2 border-dashed border-white/5 rounded-3xl relative z-10 group-hover/chart:border-white/10 transition-all">
+                  <Activity className="w-12 h-12 text-[#3B82F6]/20 mb-4 animate-pulse" />
+                  <p className="text-lg font-black text-[#F9FAFB] tracking-tight">Rendering Pipeline Analysis</p>
+                  <p className="text-[10px] font-black text-[#4a4a4a] uppercase tracking-widest mt-2">Correlation Matrix Active</p>
+               </div>
+               <div className="mt-8 grid grid-cols-2 gap-6 relative z-10">
+                   <div className="p-4 bg-white/5 rounded-2xl border border-white/5">
+                     <p className="text-[8px] font-black text-[#4a4a4a] uppercase tracking-widest mb-1 font-bold">Total Impressions</p>
+                     <p className="text-xl font-black text-white">{overview.totalImpressions.toLocaleString()}</p>
+                   </div>
+                   <div className="p-4 bg-blue-500/10 rounded-2xl border border-blue-500/20">
+                     <p className="text-[8px] font-black text-[#3B82F6] uppercase tracking-widest mb-1 font-bold">Total Conversions</p>
+                     <p className="text-xl font-black text-white">{overview.totalConversions}</p>
+                   </div>
                 </div>
-              ))}
             </div>
-          </div>
 
-          {/* Daily Performance Chart Placeholder */}
-          <div>
-            <h3 className="text-lg font-semibold text-gray-900 mb-4">Daily Performance Trend</h3>
-            <div className="bg-gray-50 border border-gray-200 rounded-xl p-8 text-center">
-              <BarChart3 className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-              <p className="text-gray-600">Performance chart visualization</p>
-              <p className="text-sm text-gray-500 mt-2">Interactive charts will be implemented here</p>
-            </div>
-          </div>
-
-          {/* Top Performing Ads */}
-          <div>
-            <h3 className="text-lg font-semibold text-gray-900 mb-4">Top Performing Ads</h3>
-            <div className="space-y-3">
-              {performanceData?.topPerformingAds.slice(0, 5).map((ad, index) => (
-                <div key={ad.id} className="flex items-center justify-between p-4 border border-gray-200 rounded-xl hover:shadow-md transition">
-                  <div className="flex items-center gap-4">
-                    <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-500 rounded-lg flex items-center justify-center text-white font-bold text-sm">
-                      {index + 1}
-                    </div>
-                    <div>
-                      <h4 className="font-semibold text-gray-900">{ad.headline}</h4>
-                      <p className="text-sm text-gray-600 capitalize">{ad.platform}</p>
-                    </div>
-                  </div>
-
-                  <div className="grid grid-cols-4 gap-6 text-sm">
-                    <div className="text-center">
-                      <p className="text-gray-600">Impressions</p>
-                      <p className="font-semibold text-gray-900">{ad.impressions.toLocaleString()}</p>
-                    </div>
-                    <div className="text-center">
-                      <p className="text-gray-600">Clicks</p>
-                      <p className="font-semibold text-gray-900">{ad.clicks.toLocaleString()}</p>
-                    </div>
-                    <div className="text-center">
-                      <p className="text-gray-600">CTR</p>
-                      <p className="font-semibold text-gray-900">{ad.ctr}%</p>
-                    </div>
-                    <div className="text-center">
-                      <p className="text-gray-600">Cost</p>
-                      <p className="font-semibold text-gray-900">${ad.cost.toFixed(2)}</p>
-                    </div>
-                  </div>
+            {/* Chart 2: Spend vs Revenue */}
+            <div className="bg-[#0A0A0A] border border-white/5 rounded-[2.5rem] p-10 relative overflow-hidden group/chart text-center">
+               <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/5 to-transparent"></div>
+               <div className="flex items-center justify-between mb-10 relative z-10 text-left">
+                  <h3 className="text-[10px] font-black uppercase tracking-[0.3em] text-[#8a919c] flex items-center gap-3">
+                    <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.6)]"></div>
+                    Spend vs Revenue
+                  </h3>
+                  <DollarSign className="w-5 h-5 text-emerald-400" />
+               </div>
+               <div className="h-64 flex flex-col items-center justify-center border-2 border-dashed border-white/5 rounded-3xl relative z-10 group-hover/chart:border-white/10 transition-all">
+                  <TrendingUp className="w-12 h-12 text-emerald-400/20 mb-4 scale-110" />
+                  <p className="text-lg font-black text-[#F9FAFB] tracking-tight">Yield Efficiency Curve</p>
+                  <p className="text-[10px] font-black text-[#4a4a4a] uppercase tracking-widest mt-2">Historical Growth Pattern</p>
+               </div>
+               <div className="mt-8 grid grid-cols-2 gap-6 relative z-10 text-left">
+                   <div className="p-4 bg-white/5 rounded-2xl border border-white/5">
+                     <p className="text-[8px] font-black text-[#4a4a4a] uppercase tracking-widest mb-1 font-bold">Capital Outlay</p>
+                     <p className="text-xl font-black text-white">${overview.totalSpend.toLocaleString()}</p>
+                   </div>
+                   <div className="p-4 bg-emerald-500/10 rounded-2xl border border-emerald-500/20">
+                     <p className="text-[8px] font-black text-emerald-400 uppercase tracking-widest mb-1 font-bold">Revenue Yield</p>
+                     <p className="text-xl font-black text-white">${Math.round(overview.totalRevenue).toLocaleString()}</p>
+                   </div>
                 </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Key Insights */}
-          <div className="bg-gradient-to-r from-blue-50 to-purple-50 border border-blue-200 rounded-xl p-4">
-            <h3 className="text-lg font-semibold text-gray-900 mb-3">AI Insights</h3>
-            <div className="space-y-2">
-              <div className="flex items-center gap-2">
-                <TrendingUp className="w-4 h-4 text-green-600" />
-                <p className="text-sm text-gray-700">
-                  <span className="font-medium">Google Ads</span> showing 23% higher CTR than average
-                </p>
-              </div>
-              <div className="flex items-center gap-2">
-                <TrendingDown className="w-4 h-4 text-red-600" />
-                <p className="text-sm text-gray-700">
-                  <span className="font-medium">Facebook Ads</span> CPC increased by 15% this week
-                </p>
-              </div>
-              <div className="flex items-center gap-2">
-                <Target className="w-4 h-4 text-blue-600" />
-                <p className="text-sm text-gray-700">
-                  Consider increasing budget for high-performing campaigns by 20%
-                </p>
-              </div>
             </div>
           </div>
         </div>

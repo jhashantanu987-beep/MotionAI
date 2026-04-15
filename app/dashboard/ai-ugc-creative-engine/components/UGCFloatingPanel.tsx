@@ -1,7 +1,7 @@
 'use client'
 
 import { useQuery } from '@tanstack/react-query'
-import { Zap, TrendingUp, Target, Clock, Users, Heart, Share2, BarChart3, Lightbulb, AlertTriangle, X, ChevronLeft } from 'lucide-react'
+import { Zap, TrendingUp, Target, Clock, Users, Heart, Share2, BarChart3, Lightbulb, AlertTriangle, X, ChevronLeft, Loader2 } from 'lucide-react'
 import { useState } from 'react'
 
 interface UGCInsights {
@@ -25,175 +25,167 @@ export default function UGCFloatingPanel() {
       if (!response.ok) throw new Error('Failed to fetch UGC insights')
       return response.json() as Promise<UGCInsights>
     },
-    refetchInterval: 60000, // Refresh every minute
+    refetchInterval: 60000,
   })
-
-  const getImpactColor = (impact: string) => {
-    switch (impact) {
-      case 'high': return 'text-red-600 bg-red-50 border-red-200'
-      case 'medium': return 'text-orange-600 bg-orange-50 border-orange-200'
-      case 'low': return 'text-green-600 bg-green-50 border-green-200'
-      default: return 'text-gray-600 bg-gray-50 border-gray-200'
-    }
-  }
 
   if (!isOpen) {
     return (
       <button
         onClick={() => setIsOpen(true)}
-        className="fixed right-6 top-1/2 transform -translate-y-1/2 w-12 h-12 bg-gradient-to-br from-slate-900 to-slate-800 rounded-full shadow-lg border border-slate-700 flex items-center justify-center hover:from-slate-800 hover:to-slate-700 transition-all hover:shadow-xl"
-        title="Show UGC Insights"
+        className="fixed right-8 top-1/2 transform -translate-y-1/2 w-14 h-14 bg-[#0A0A0A] border border-white/10 rounded-full shadow-[0_0_30px_rgba(0,0,0,0.5)] flex items-center justify-center hover:bg-[#121212] transition-all hover:scale-110 active:scale-95 group z-[60]"
+        title="Open Intelligence Panel"
       >
-        <ChevronLeft className="w-5 h-5 text-white" />
+        <div className="absolute inset-0 bg-indigo-500/10 rounded-full blur-xl group-hover:bg-indigo-500/20 transition-all"></div>
+        <ChevronLeft className="w-6 h-6 text-[#efb0ff] relative z-10" />
       </button>
     )
   }
 
   return (
-    <div className="fixed right-6 top-1/2 transform -translate-y-1/2 w-80 bg-gradient-to-br from-white to-slate-50 rounded-3xl shadow-2xl border border-slate-200 p-6 space-y-6 max-h-[90vh] overflow-y-auto">
-      {/* Header with Close Button */}
-      <div className="flex items-center justify-between -mx-6 -mt-6 px-6 pt-6 pb-4 border-b border-slate-200">
-        <h3 className="font-bold text-slate-900 text-lg">UGC Insights</h3>
+    <div className="fixed right-8 top-[10%] bottom-[10%] w-[24rem] bg-[#0A0A0A]/95 backdrop-blur-3xl rounded-[3rem] shadow-[0_0_100px_rgba(0,0,0,0.8)] border border-white/10 p-10 space-y-8 overflow-y-auto custom-scrollbar z-[60] animate-in slide-in-from-right-10 duration-500">
+      <div className="absolute top-0 right-0 w-64 h-64 bg-indigo-500/5 blur-[100px] rounded-full pointer-events-none"></div>
+
+      {/* Header */}
+      <div className="flex items-center justify-between mb-2 relative z-10">
+        <div>
+          <h3 className="text-2xl font-black text-[#F9FAFB] tracking-tighter">Neural Intelligence</h3>
+          <p className="text-[10px] font-black text-[#8a919c] uppercase tracking-widest mt-1">UGC Optimization Core</p>
+        </div>
         <button
           onClick={() => setIsOpen(false)}
-          className="p-1.5 hover:bg-slate-100 rounded-lg transition-colors text-slate-600 hover:text-slate-900"
-          title="Close UGC Insights"
+          className="p-3 hover:bg-white/5 rounded-2xl transition-all text-[#8a919c] hover:text-[#efb0ff]"
         >
-          <X className="w-5 h-5" />
+          <X className="w-6 h-6" />
         </button>
       </div>
 
+      <div className="h-[1px] w-full bg-white/5 relative z-10"></div>
+
       {isLoading ? (
-        <div className="flex items-center justify-center py-8">
-          <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-purple-500"></div>
+        <div className="flex items-center justify-center py-20 relative z-10">
+          <Loader2 className="w-10 h-10 text-[#efb0ff] animate-spin" />
         </div>
       ) : (
-        <div className="space-y-6">
-          {/* Trending Topics */}
-          <div className="space-y-3">
-            <div className="flex items-center gap-2">
-              <TrendingUp className="w-4 h-4 text-green-600" />
-              <h4 className="text-sm font-medium text-gray-900">Trending Topics</h4>
-            </div>
-            <div className="space-y-2">
+        <div className="space-y-10 relative z-10">
+          {/* Viral Resonance Topics */}
+          <div className="space-y-6">
+            <h4 className="text-[10px] font-black uppercase tracking-widest text-[#8a919c] flex items-center gap-3">
+              <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(52,211,153,0.5)]"></div>
+              Viral Resonance
+            </h4>
+            <div className="space-y-3">
               {insights?.trendingTopics.slice(0, 3).map((topic, index) => (
-                <div key={index} className="bg-green-50 border border-green-200 rounded-lg p-3">
-                  <p className="text-sm font-medium text-green-800">{topic}</p>
-                  <p className="text-xs text-green-600 mt-1">High engagement potential</p>
+                <div key={topic} className="bg-white/5 border border-white/5 rounded-2xl p-4 hover:border-white/10 transition-all group/topic">
+                  <p className="text-sm font-black text-[#F9FAFB] tracking-tight group-hover:text-emerald-400 transition-colors uppercase">{topic}</p>
+                  <p className="text-[10px] font-bold text-[#4a4a4a] mt-1 tracking-widest uppercase">Apex Potential Detected</p>
                 </div>
               ))}
             </div>
           </div>
 
-          {/* Best Posting Times */}
-          <div className="space-y-3">
-            <div className="flex items-center gap-2">
-              <Clock className="w-4 h-4 text-blue-600" />
-              <h4 className="text-sm font-medium text-gray-900">Best Posting Times</h4>
-            </div>
-            <div className="space-y-2">
+          {/* Temporal Windows */}
+          <div className="space-y-6">
+            <h4 className="text-[10px] font-black uppercase tracking-widest text-[#8a919c] flex items-center gap-3">
+              <div className="w-1.5 h-1.5 rounded-full bg-blue-500 shadow-[0_0_8px_rgba(59,130,246,0.5)]"></div>
+              Temporal Windows
+            </h4>
+            <div className="space-y-3">
               {insights?.bestPostingTimes.slice(0, 2).map((time, index) => (
-                <div key={index} className="bg-blue-50 border border-blue-200 rounded-lg p-3">
-                  <p className="text-sm font-medium text-blue-800">
-                    {time.day} at {time.hour}
-                  </p>
-                  <p className="text-xs text-blue-600 mt-1">
-                    {time.engagement}% higher engagement
-                  </p>
+                <div key={index} className="bg-white/5 border border-white/5 rounded-2xl p-5 flex items-center justify-between">
+                  <div>
+                    <p className="text-sm font-black text-[#F9FAFB] tracking-tight uppercase">{time.day}</p>
+                    <p className="text-[10px] font-bold text-[#4a4a4a] tracking-widest uppercase mt-1">@ {time.hour}</p>
+                  </div>
+                  <div className="text-right">
+                    <p className="text-xl font-black text-blue-400 tracking-tighter">+{time.engagement}%</p>
+                    <p className="text-[8px] font-black text-[#4a4a4a] uppercase tracking-widest">Velocity</p>
+                  </div>
                 </div>
               ))}
             </div>
           </div>
 
-          {/* AI Recommendations */}
-          <div className="space-y-3">
-            <div className="flex items-center gap-2">
-              <Zap className="w-4 h-4 text-purple-600" />
-              <h4 className="text-sm font-medium text-gray-900">AI Recommendations</h4>
-            </div>
-            <div className="space-y-2">
+          {/* Neural Synthesis Recommendations */}
+          <div className="space-y-6">
+            <h4 className="text-[10px] font-black uppercase tracking-widest text-[#8a919c] flex items-center gap-3">
+              <div className="w-1.5 h-1.5 rounded-full bg-[#efb0ff] shadow-[0_0_8px_rgba(239,176,255,0.5)]"></div>
+              Neural Synthesis
+            </h4>
+            <div className="space-y-3">
               {insights?.aiRecommendations.slice(0, 2).map((rec, index) => (
-                <div key={index} className={`border rounded-lg p-3 ${getImpactColor(rec.impact)}`}>
-                  <p className="text-sm font-medium">{rec.title}</p>
-                  <p className="text-xs mt-1 opacity-80">{rec.description}</p>
-                  <span className="text-xs font-medium mt-2 inline-block px-2 py-1 rounded-full bg-white bg-opacity-50 capitalize">
-                    {rec.impact} impact
+                <div key={rec.title} className="bg-white/5 border border-white/5 rounded-[2rem] p-6 hover:border-[#efb0ff]/30 transition-all group/rec">
+                  <div className="flex items-center gap-3 mb-3">
+                    <Zap className="w-4 h-4 text-[#efb0ff]" />
+                    <p className="text-sm font-black text-[#F9FAFB] tracking-tight uppercase group-hover/rec:text-[#efb0ff] transition-colors">{rec.title}</p>
+                  </div>
+                  <p className="text-xs font-medium text-[#8a919c] leading-relaxed mb-4 italic">&quot;{rec.description}&quot;</p>
+                  <span className="text-[8px] font-black uppercase tracking-widest px-3 py-1.5 rounded-full bg-[#efb0ff]/5 text-[#efb0ff] border border-[#efb0ff]/10">
+                    {rec.impact} Priority Target
                   </span>
                 </div>
               ))}
             </div>
           </div>
 
-          {/* Performance Alerts */}
+          {/* Performance Alerts (Dark Theme) */}
           {insights?.performanceAlerts && insights.performanceAlerts.length > 0 && (
-            <div className="space-y-3">
-              <div className="flex items-center gap-2">
-                <AlertTriangle className="w-4 h-4 text-orange-600" />
-                <h4 className="text-sm font-medium text-gray-900">Performance Alerts</h4>
-              </div>
-              <div className="space-y-2">
+            <div className="space-y-6">
+              <h4 className="text-[10px] font-black uppercase tracking-widest text-rose-400 flex items-center gap-3">
+                <AlertTriangle className="w-4 h-4" />
+                System Alerts
+              </h4>
+              <div className="space-y-3">
                 {insights.performanceAlerts.slice(0, 2).map((alert, index) => (
-                  <div key={index} className="bg-orange-50 border border-orange-200 rounded-lg p-3">
-                    <p className="text-sm text-orange-800">{alert}</p>
+                  <div key={index} className="bg-rose-500/5 border border-rose-500/20 rounded-2xl p-4">
+                    <p className="text-xs font-bold text-rose-400 leading-relaxed italic">&quot;{alert}&quot;</p>
                   </div>
                 ))}
               </div>
             </div>
           )}
 
-          {/* Content Suggestions */}
-          <div className="space-y-3">
-            <div className="flex items-center gap-2">
-              <Target className="w-4 h-4 text-indigo-600" />
-              <h4 className="text-sm font-medium text-gray-900">Content Ideas</h4>
-            </div>
-            <div className="space-y-2">
+          {/* Content Ideas (Dark Theme) */}
+          <div className="space-y-6">
+            <h4 className="text-[10px] font-black uppercase tracking-widest text-[#8a919c] flex items-center gap-3">
+              <Target className="w-4 h-4 text-[#3B82F6]" />
+              Latent Concepts
+            </h4>
+            <div className="space-y-3">
               {insights?.contentSuggestions.slice(0, 2).map((suggestion, index) => (
-                <div key={index} className="bg-indigo-50 border border-indigo-200 rounded-lg p-3">
-                  <p className="text-sm text-indigo-800">{suggestion}</p>
-                  <button className="text-xs text-indigo-600 font-medium mt-2 hover:text-indigo-800">
-                    Generate →
+                <div key={index} className="bg-white/5 border border-white/5 rounded-2xl p-5 hover:border-white/10 transition-all">
+                  <p className="text-sm font-bold text-[#F9FAFB] leading-relaxed italic">&quot;{suggestion}&quot;</p>
+                  <button className="text-[10px] font-black text-[#3B82F6] uppercase tracking-widest mt-4 hover:text-[#F9FAFB] transition-colors flex items-center gap-2 group/btn">
+                    Execute Synthesis <ChevronLeft className="w-3 h-3 rotate-180 group-hover/btn:translate-x-1 transition-transform" />
                   </button>
                 </div>
               ))}
             </div>
           </div>
 
-          {/* Quick Stats */}
-          <div className="bg-gradient-to-br from-purple-50 to-pink-50 border border-purple-200 rounded-2xl p-4">
-            <h4 className="text-sm font-medium text-gray-900 mb-3">Today's Performance</h4>
-            <div className="grid grid-cols-2 gap-3">
+          {/* Resonance Pulse Stats */}
+          <div className="bg-[#050505] border border-white/5 rounded-3xl p-8 relative overflow-hidden group/stats">
+            <div className="absolute inset-0 bg-gradient-to-br from-[#efb0ff]/5 to-transparent"></div>
+            <h4 className="text-[10px] font-black text-[#4a4a4a] uppercase tracking-widest mb-6 relative z-10">Resonance Pulse</h4>
+            <div className="grid grid-cols-2 gap-8 relative z-10">
               <div className="text-center">
-                <div className="flex items-center justify-center mb-1">
-                  <Heart className="w-4 h-4 text-pink-600" />
-                </div>
-                <p className="text-lg font-bold text-pink-600">2.4K</p>
-                <p className="text-xs text-pink-700">Likes</p>
+                <p className="text-4xl font-black text-[#efb0ff] tracking-tighter">2.4k</p>
+                <p className="text-[8px] font-black text-[#8a919c] uppercase tracking-widest mt-1">Affinity Units</p>
               </div>
               <div className="text-center">
-                <div className="flex items-center justify-center mb-1">
-                  <Share2 className="w-4 h-4 text-blue-600" />
-                </div>
-                <p className="text-lg font-bold text-blue-600">847</p>
-                <p className="text-xs text-blue-700">Shares</p>
+                <p className="text-4xl font-black text-blue-400 tracking-tighter">847</p>
+                <p className="text-[8px] font-black text-[#8a919c] uppercase tracking-widest mt-1">Viral Splinters</p>
               </div>
             </div>
           </div>
 
-          {/* Quick Actions */}
-          <div className="space-y-3">
-            <h4 className="text-sm font-medium text-gray-900">Quick Actions</h4>
-            <div className="space-y-2">
-              <button className="w-full p-3 bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-2xl font-medium hover:shadow-lg transition text-sm">
-                Generate Viral Content
-              </button>
-              <button className="w-full p-3 bg-white text-gray-900 border border-gray-200 rounded-2xl font-medium hover:bg-gray-50 transition text-sm">
-                Schedule Next Post
-              </button>
-              <button className="w-full p-3 bg-lime-500 text-white rounded-2xl font-medium hover:bg-lime-600 transition text-sm">
-                Analyze Performance
-              </button>
-            </div>
+          {/* Rapid Interaction Layer */}
+          <div className="space-y-3 relative z-10 pt-4">
+            <button className="w-full py-5 bg-[#efb0ff] hover:bg-[#f4d4ff] text-black font-black text-[10px] uppercase tracking-widest rounded-2xl transition-all shadow-[0_0_30px_rgba(239,176,255,0.2)] hover:scale-[1.02] active:scale-95">
+              Synthesize Viral Unit
+            </button>
+            <button className="w-full py-5 bg-white/5 hover:bg-white/10 border border-white/10 text-white font-black text-[10px] uppercase tracking-widest rounded-2xl transition-all hover:scale-[1.02] active:scale-95">
+              Network Deep Scan
+            </button>
           </div>
         </div>
       )}

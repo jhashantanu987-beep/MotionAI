@@ -1,71 +1,39 @@
-import { NextResponse } from 'next/server'
+import { NextRequest, NextResponse } from 'next/server'
+import { proxyJson } from '@/lib/backendClient'
 
-const leads = [
-  {
-    id: 1,
-    name: 'Sarah Johnson',
-    role: 'Marketing Director',
-    company: 'TechCorp Inc.',
-    avatar: 'SJ',
-    tags: ['hot', 'enterprise'],
-    email: 'sarah@techcorp.com',
-    phone: '+1 (555) 123-4567'
-  },
-  {
-    id: 2,
-    name: 'Michael Chen',
-    role: 'CTO',
-    company: 'StartupXYZ',
-    avatar: 'MC',
-    tags: ['warm', 'startup'],
-    email: 'michael@startupxyz.com',
-    phone: '+1 (555) 234-5678'
-  },
-  {
-    id: 3,
-    name: 'Emma Davis',
-    role: 'VP Sales',
-    company: 'Global Solutions',
-    avatar: 'ED',
-    tags: ['hot', 'enterprise'],
-    email: 'emma@globalsolutions.com',
-    phone: '+1 (555) 345-6789'
-  },
-  {
-    id: 4,
-    name: 'James Wilson',
-    role: 'Founder',
-    company: 'InnovateLab',
-    avatar: 'JW',
-    tags: ['cold', 'startup'],
-    email: 'james@innovatelab.com',
-    phone: '+1 (555) 456-7890'
-  },
-  {
-    id: 5,
-    name: 'Lisa Rodriguez',
-    role: 'Product Manager',
-    company: 'DataFlow Systems',
-    avatar: 'LR',
-    tags: ['warm', 'enterprise'],
-    email: 'lisa@dataflow.com',
-    phone: '+1 (555) 567-8901'
-  },
-  {
-    id: 6,
-    name: 'David Kim',
-    role: 'CEO',
-    company: 'NextGen Tech',
-    avatar: 'DK',
-    tags: ['hot', 'startup'],
-    email: 'david@nextgen.com',
-    phone: '+1 (555) 678-9012'
+// ─── GET /api/leads ───────────────────────────────────────────────────────────
+// Fetches real leads from the Express CRM backend (localhost:5000/api/leads)
+export async function GET(request: NextRequest) {
+  const { searchParams } = new URL(request.url)
+  const status = searchParams.get('status')
+  const source = searchParams.get('source')
+
+  const query = new URLSearchParams()
+  if (status) query.set('status', status)
+  if (source) query.set('source', source)
+
+  const path = `/api/leads${query.toString() ? `?${query.toString()}` : ''}`
+  const { data, status: httpStatus, ok } = await proxyJson(path)
+
+  if (!ok) {
+    return NextResponse.json(
+      { error: 'CRM backend unreachable. Is the Express server running on port 5000?' },
+      { status: httpStatus }
+    )
   }
-]
 
-export async function GET() {
-  // Simulate API delay
-  await new Promise(resolve => setTimeout(resolve, 500))
+  return NextResponse.json(data)
+}
 
-  return NextResponse.json(leads)
+// ─── POST /api/leads ──────────────────────────────────────────────────────────
+// Creates a new lead via Express backend — triggers Gemini AI scoring + first message
+export async function POST(request: NextRequest) {
+  const body = await request.json()
+
+  const { data, status: httpStatus, ok } = await proxyJson('/api/leads', {
+    method: 'POST',
+    body: JSON.stringify(body),
+  })
+
+  return NextResponse.json(data, { status: ok ? 201 : httpStatus })
 }

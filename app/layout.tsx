@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import './globals.css'
-import AIChatbot from './components/AIChatbot'
+import AIChatbotWrapper from './components/AIChatbotWrapper'
 import { LeadsProvider } from './contexts/LeadsContext'
 import { ToastProvider } from './contexts/ToastContext'
 import ToastContainer from './components/ToastContainer'
@@ -23,7 +23,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <LeadsProvider>
               <div className="min-h-screen bg-slate-950 text-slate-100">
                 {children}
-                <AIChatbot />
+                <AIChatbotWrapper />
                 <ToastContainer />
               </div>
             </LeadsProvider>

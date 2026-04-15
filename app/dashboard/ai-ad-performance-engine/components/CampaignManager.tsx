@@ -1,8 +1,10 @@
 'use client'
 
 import { useState } from 'react'
-import { useQuery } from '@tanstack/react-query'
-import { Plus, Play, Pause, Edit, Trash2, TrendingUp, TrendingDown, Eye, Target, DollarSign, Calendar } from 'lucide-react'
+import { useQuery, useQueryClient } from '@tanstack/react-query'
+import { Plus, Play, Pause, Edit, Trash2, Target, Users, Search, Filter } from 'lucide-react'
+import LaunchUnitModal from './LaunchUnitModal'
+import { API_CONFIG } from '@/app/config/api'
 
 interface Campaign {
   id: string
@@ -23,230 +25,154 @@ interface Campaign {
 
 export default function CampaignManager() {
   const [selectedPlatform, setSelectedPlatform] = useState<string>('all')
+  const [isLaunchModalOpen, setIsLaunchModalOpen] = useState(false)
+  const queryClient = useQueryClient()
 
   const { data: campaigns, isLoading } = useQuery({
     queryKey: ['ad-campaigns', selectedPlatform],
     queryFn: async () => {
-      const response = await fetch(`/api/ai-ad-performance-engine/campaigns?platform=${selectedPlatform}`)
+      const response = await fetch(`${API_CONFIG.baseUrl}/campaigns?platform=${selectedPlatform}`)
       if (!response.ok) throw new Error('Failed to fetch campaigns')
       return response.json() as Promise<Campaign[]>
     },
     refetchInterval: 30000,
   })
 
-  const getPlatformColor = (platform: string) => {
+  const getPlatformIcon = (platform: string) => {
     switch (platform) {
-      case 'google': return 'bg-blue-100 text-blue-800 border-blue-200'
-      case 'facebook': return 'bg-blue-100 text-blue-800 border-blue-200'
-      case 'linkedin': return 'bg-blue-100 text-blue-800 border-blue-200'
-      case 'tiktok': return 'bg-black text-white border-gray-300'
-      default: return 'bg-gray-100 text-gray-800 border-gray-200'
+      case 'google': return '🔍'
+      case 'facebook': return '📘'
+      case 'linkedin': return '💼'
+      case 'tiktok': return '🎵'
+      default: return '📊'
     }
   }
 
-  const getStatusColor = (status: string) => {
-    switch (status) {
-      case 'active': return 'bg-green-100 text-green-800 border-green-200'
-      case 'paused': return 'bg-yellow-100 text-yellow-800 border-yellow-200'
-      case 'draft': return 'bg-gray-100 text-gray-800 border-gray-200'
-      default: return 'bg-gray-100 text-gray-800 border-gray-200'
-    }
+  const handleToggleCampaign = async (id: string, status: string) => {
+    const newStatus = status === 'active' ? 'paused' : 'active'
+    await fetch(`${API_CONFIG.baseUrl}/campaigns/${id}`, {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ status: newStatus })
+    })
+    queryClient.invalidateQueries({ queryKey: ['ad-campaigns'] })
   }
 
-  const handleCreateCampaign = () => {
-    // TODO: Open campaign creation modal
-    console.log('Create new campaign')
-  }
-
-  const handleToggleCampaign = (campaignId: string, currentStatus: string) => {
-    // TODO: Toggle campaign status
-    console.log('Toggle campaign:', campaignId, currentStatus)
+  const handleDelete = async (id: string) => {
+    await fetch(`http://localhost:5000/api/campaigns/${id}`, { method: 'DELETE' })
+    queryClient.invalidateQueries({ queryKey: ['ad-campaigns'] })
   }
 
   return (
-    <div className="bg-gradient-to-br from-[#1a0a2e] to-[#0a0a0a] rounded-2xl shadow-2xl shadow-[#b537f2]/20 border border-[#b537f2]/50 hover:border-[#b537f2] transition-all p-6">
-      <div className="flex items-center justify-between mb-6">
-        <div>
-          <h2 className="text-xl font-bold text-gray-900">Campaign Manager</h2>
-          <p className="text-gray-600 mt-1">Manage and optimize your advertising campaigns</p>
-        </div>
+    <>
+      <div className="bg-[#121212] rounded-[3rem] border border-white/5 shadow-2xl p-10 relative overflow-hidden group/container">
+        <div className="flex items-center justify-between mb-12 relative z-10">
+          <div>
+            <h2 className="text-3xl font-black text-[#F9FAFB] tracking-tight">Campaign Flow</h2>
+            <p className="text-[#8a919c] mt-1 text-sm font-medium uppercase tracking-widest text-[10px] font-black">Performance Management</p>
+          </div>
 
-        <div className="flex items-center gap-3">
-          {/* Platform Filter */}
-          <select
-            value={selectedPlatform}
-            onChange={(e) => setSelectedPlatform(e.target.value)}
-            className="px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-          >
-            <option value="all">All Platforms</option>
-            <option value="google">Google Ads</option>
-            <option value="facebook">Facebook Ads</option>
-            <option value="linkedin">LinkedIn Ads</option>
-            <option value="tiktok">TikTok Ads</option>
-          </select>
+          <div className="flex items-center gap-4">
+            {/* Platform Select */}
+            <div className="relative group/select">
+              <select
+                value={selectedPlatform}
+                onChange={(e) => setSelectedPlatform(e.target.value)}
+                className="appearance-none bg-[#0A0A0A] border border-white/10 rounded-2xl px-8 py-4 pr-12 text-sm font-black text-[#F9FAFB] uppercase tracking-widest focus:ring-2 focus:ring-[#3B82F6]/50 focus:outline-none transition-all cursor-pointer hover:border-white/20 shadow-xl"
+              >
+                <option value="all">Global Reach</option>
+                <option value="google">Google Core</option>
+                <option value="facebook">Meta Network</option>
+                <option value="linkedin">Pro Network</option>
+                <option value="tiktok">Stream Viral</option>
+              </select>
+              <Filter className="absolute right-5 top-1/2 -translate-y-1/2 w-4 h-4 text-[#4a4a4a] pointer-events-none group-hover/select:text-white transition-colors" />
+            </div>
 
-          {/* Create Campaign Button */}
-          <button
-            onClick={handleCreateCampaign}
-            className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-blue-500 to-purple-500 text-white rounded-lg font-semibold hover:shadow-lg transition"
-          >
-            <Plus className="w-4 h-4" />
-            New Campaign
-          </button>
+            <button
+              onClick={() => setIsLaunchModalOpen(true)}
+              className="flex items-center gap-3 px-8 py-4 bg-[#3B82F6] hover:bg-blue-600 text-white rounded-2xl font-black text-xs uppercase tracking-[0.2em] transition-all shadow-[0_0_30px_rgba(59,130,246,0.3)] hover:scale-[1.05] active:scale-95"
+            >
+              <Plus className="w-5 h-5" />
+              Launch Unit
+            </button>
+          </div>
         </div>
-      </div>
 
       {isLoading ? (
-        <div className="flex items-center justify-center py-12">
-          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500"></div>
+        <div className="flex items-center justify-center py-20">
+          <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-[#3B82F6]"></div>
         </div>
       ) : (
-        <div className="space-y-4">
-          {campaigns?.map((campaign) => (
-            <div key={campaign.id} className="bg-[#111827] border border-[#1f2937] rounded-2xl p-5 shadow-lg">
-              <div className="flex items-center justify-between mb-4">
-                <div className="flex items-center gap-4">
-                  <div className={`px-3 py-1 rounded-full text-xs font-medium ${
-                    campaign.platform === 'google' ? 'bg-blue-500/20 text-blue-400' :
-                    campaign.platform === 'facebook' ? 'bg-blue-500/20 text-blue-400' :
-                    campaign.platform === 'linkedin' ? 'bg-blue-500/20 text-blue-400' :
-                    campaign.platform === 'tiktok' ? 'bg-red-500/20 text-red-400' :
-                    'bg-gray-500/20 text-gray-400'
-                  }`}>
-                    {campaign.platform.charAt(0).toUpperCase() + campaign.platform.slice(1)}
-                  </div>
-                  <h3 className="text-lg font-semibold text-white">{campaign.name}</h3>
-                  <div className={`px-3 py-1 rounded-full text-xs font-medium ${
-                    campaign.status === 'active' ? 'bg-green-500/20 text-green-400' :
-                    campaign.status === 'paused' ? 'bg-yellow-500/20 text-yellow-400' :
-                    'bg-gray-500/20 text-gray-400'
-                  }`}>
-                    {campaign.status.charAt(0).toUpperCase() + campaign.status.slice(1)}
-                  </div>
+        <div className="space-y-6">
+          {Array.isArray(campaigns) && campaigns.map((campaign) => (
+            <div key={campaign.id} className="bg-[#0A0A0A] border border-white/5 rounded-[2.5rem] p-8 hover:border-white/10 transition-all group/card relative overflow-hidden flex items-center justify-between gap-12">
+               <div className="absolute top-0 right-0 w-32 h-32 bg-white/[0.01] -rotate-45 translate-x-16 -translate-y-16 group-hover/card:bg-white/[0.03] transition-all"></div>
+              
+              <div className="flex items-center gap-10 flex-1 relative z-10">
+                {/* Platform Icon */}
+                <div className="w-16 h-16 bg-[#121212] rounded-[1.5rem] border border-white/5 flex items-center justify-center text-3xl shadow-inner group-hover/card:border-white/10 transition-all">
+                  {getPlatformIcon(campaign.platform)}
                 </div>
 
-                <div className="flex items-center gap-2">
-                  <div className="px-2 py-1 rounded-full text-xs font-medium bg-green-500/20 text-green-400">
-                    {campaign.roas >= 3 ? 'High ROAS' : campaign.roas >= 2 ? 'Good ROAS' : 'Low ROAS'}
+                {/* Info */}
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-center gap-4 mb-2">
+                    <h3 className="text-2xl font-black text-[#F9FAFB] tracking-tight truncate group-hover/card:text-[#3B82F6] transition-colors">{campaign.name}</h3>
+                    <div className={`px-4 py-1.5 rounded-full text-[8px] font-black uppercase tracking-[0.2em] border ${campaign.status === 'active' ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20' : 'bg-amber-500/10 text-amber-400 border-amber-500/20'}`}>
+                      {campaign.status}
+                    </div>
                   </div>
-                  <button
-                    onClick={() => handleToggleCampaign(campaign.id, campaign.status)}
-                    className={`p-2 rounded-lg transition ${
-                      campaign.status === 'active'
-                        ? 'text-yellow-400 hover:bg-yellow-500/20'
-                        : 'text-green-400 hover:bg-green-500/20'
-                    }`}
-                  >
-                    {campaign.status === 'active' ? <Pause className="w-4 h-4" /> : <Play className="w-4 h-4" />}
-                  </button>
-                  <button className="p-2 text-[#94a3b8] hover:text-white hover:bg-[#1a1f2e] rounded-lg transition">
-                    <Edit className="w-4 h-4" />
-                  </button>
-                  <button className="p-2 text-red-400 hover:text-red-300 hover:bg-red-500/20 rounded-lg transition">
-                    <Trash2 className="w-4 h-4" />
-                  </button>
+                  <p className="text-[10px] font-black text-[#4a4a4a] uppercase tracking-[0.2em] group-hover/card:text-[#8a919c] transition-colors">Digital Distribution Platform</p>
                 </div>
               </div>
 
-              <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-4">
+              {/* Metrics Strip */}
+              <div className="flex items-center gap-16 relative z-10 px-8 border-x border-white/5">
                 <div className="text-center">
-                  <div className="flex items-center justify-center mb-1">
-                    <DollarSign className="w-4 h-4 text-green-400" />
-                  </div>
-                  <p className="text-sm font-semibold text-white">${campaign.spent.toLocaleString()}</p>
-                  <p className="text-xs text-[#94a3b8]">Spent</p>
+                  <p className="text-2xl font-black text-[#F9FAFB] tracking-tight">${campaign.spent.toLocaleString()}</p>
+                  <p className="text-[10px] font-black text-[#4a4a4a] uppercase tracking-widest mt-1">Allocation</p>
                 </div>
-
                 <div className="text-center">
-                  <div className="flex items-center justify-center mb-1">
-                    <Eye className="w-4 h-4 text-blue-400" />
-                  </div>
-                  <p className="text-sm font-semibold text-white">{campaign.impressions.toLocaleString()}</p>
-                  <p className="text-xs text-[#94a3b8]">Impressions</p>
+                  <p className="text-2xl font-black text-[#3B82F6] tracking-tight">{campaign.conversions}</p>
+                  <p className="text-[10px] font-black text-[#4a4a4a] uppercase tracking-widest mt-1">Outcome</p>
                 </div>
-
                 <div className="text-center">
-                  <div className="flex items-center justify-center mb-1">
-                    <Target className="w-4 h-4 text-purple-400" />
-                  </div>
-                  <p className="text-sm font-semibold text-white">{campaign.clicks.toLocaleString()}</p>
-                  <p className="text-xs text-[#94a3b8]">Clicks</p>
-                </div>
-
-                <div className="text-center">
-                  <div className="flex items-center justify-center mb-1">
-                    <TrendingUp className="w-4 h-4 text-orange-400" />
-                  </div>
-                  <p className="text-sm font-semibold text-white">{campaign.ctr}%</p>
-                  <p className="text-xs text-[#94a3b8]">CTR</p>
-                </div>
-
-                <div className="text-center">
-                  <div className="flex items-center justify-center mb-1">
-                    <DollarSign className="w-4 h-4 text-red-400" />
-                  </div>
-                  <p className="text-sm font-semibold text-white">${campaign.cpc.toFixed(2)}</p>
-                  <p className="text-xs text-[#94a3b8]">CPC</p>
-                </div>
-
-                <div className="text-center">
-                  <div className="flex items-center justify-center mb-1">
-                    <TrendingUp className="w-4 h-4 text-indigo-400" />
-                  </div>
-                  <p className="text-sm font-semibold text-white">{campaign.conversions}</p>
-                  <p className="text-xs text-[#94a3b8]">Conversions</p>
-                </div>
-
-                <div className="text-center">
-                  <div className="flex items-center justify-center mb-1">
-                    <TrendingUp className="w-4 h-4 text-green-400" />
-                  </div>
-                  <p className="text-sm font-semibold text-white">{campaign.roas}x</p>
-                  <p className="text-xs text-[#94a3b8]">ROAS</p>
-                </div>
-
-                <div className="text-center">
-                  <div className="flex items-center justify-center mb-1">
-                    <Calendar className="w-4 h-4 text-[#94a3b8]" />
-                  </div>
-                  <p className="text-sm font-semibold text-white">
-                    {new Date(campaign.endDate).toLocaleDateString()}
-                  </p>
-                  <p className="text-xs text-[#94a3b8]">End Date</p>
+                  <p className="text-2xl font-black text-emerald-400 tracking-tight">{campaign.roas}x</p>
+                  <p className="text-[10px] font-black text-[#4a4a4a] uppercase tracking-widest mt-1">ROAS</p>
                 </div>
               </div>
 
-              {/* Progress Bar */}
-              <div className="mt-4">
-                <div className="flex items-center justify-between text-sm text-gray-600 mb-2">
-                  <span>Budget Progress</span>
-                  <span>${campaign.spent.toLocaleString()} / ${campaign.budget.toLocaleString()}</span>
-                </div>
-                <div className="w-full bg-gray-200 rounded-full h-2">
-                  <div
-                    className="bg-gradient-to-r from-blue-500 to-purple-500 h-2 rounded-full transition-all"
-                    style={{ width: `${(campaign.spent / campaign.budget) * 100}%` }}
-                  ></div>
-                </div>
+              {/* Actions */}
+              <div className="flex items-center gap-4 relative z-10">
+                <button
+                  onClick={() => handleToggleCampaign(campaign.id, campaign.status)}
+                  className={`w-14 h-14 rounded-2xl border border-white/5 flex items-center justify-center transition-all shadow-xl group/btn ${
+                    campaign.status === 'active' 
+                      ? 'bg-amber-500/5 text-amber-400 hover:bg-amber-500/10 hover:border-amber-500/20' 
+                      : 'bg-emerald-500/5 text-emerald-400 hover:bg-emerald-500/10 hover:border-emerald-500/20'
+                  }`}
+                >
+                  {campaign.status === 'active' ? <Pause className="w-6 h-6" /> : <Play className="w-6 h-6" />}
+                </button>
+                <button className="w-14 h-14 bg-white/5 text-[#4a4a4a] hover:text-white rounded-2xl border border-white/5 hover:border-white/10 flex items-center justify-center transition-all shadow-xl">
+                  <Edit className="w-6 h-6" />
+                </button>
+                <button className="w-14 h-14 bg-rose-500/5 text-rose-400/50 hover:text-rose-400 rounded-2xl border border-white/5 hover:border-rose-500/20 flex items-center justify-center transition-all shadow-xl">
+                  <Trash2 className="w-6 h-6" />
+                </button>
               </div>
             </div>
           ))}
-
-          {campaigns?.length === 0 && (
-            <div className="text-center py-12">
-              <Target className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-              <h3 className="text-lg font-medium text-gray-900 mb-2">No campaigns found</h3>
-              <p className="text-gray-600 mb-4">Create your first advertising campaign to get started</p>
-              <button
-                onClick={handleCreateCampaign}
-                className="px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-500 text-white rounded-lg font-semibold hover:shadow-lg transition"
-              >
-                Create Campaign
-              </button>
-            </div>
-          )}
         </div>
       )}
     </div>
+
+      <LaunchUnitModal 
+        isOpen={isLaunchModalOpen}
+        onClose={() => setIsLaunchModalOpen(false)}
+        onSuccess={() => queryClient.invalidateQueries({ queryKey: ['ad-campaigns'] })}
+      />
+    </>
   )
 }

@@ -4,23 +4,23 @@ import { BarChart3, Zap, Lock, Target } from 'lucide-react'
 
 const advantageCards = [
   {
-    title: 'Data-driven optimization',
-    description: 'Every interaction is measured, analyzed, and improved to keep performance ahead of the market.',
+    title: 'Data Layer',
+    description: 'System collects conversion rates, best-performing scripts, and best-performing funnels.',
     icon: BarChart3
   },
   {
-    title: 'Instant response (<5 sec)',
-    description: 'AI-powered engagement reacts in seconds to capture attention before competitors can respond.',
+    title: 'Speed Advantage',
+    description: 'Response time < 5 seconds — faster than any human or competing system.',
     icon: Zap
   },
   {
-    title: 'High switching cost',
-    description: 'Once the system is active, replacing it means losing momentum, insights, and customer trust.',
+    title: 'Switching Cost',
+    description: 'Client becomes dependent on your funnel + system, making it hard to switch.',
     icon: Lock
   },
   {
-    title: 'Niche specialization',
-    description: 'Built for focused industries, the system speaks your buyer’s language and outperforms generic tools.',
+    title: 'Niche Knowledge',
+    description: 'Deep specialization in clinics, real estate, etc., with industry-specific scripts.',
     icon: Target
   }
 ]

@@ -5,58 +5,58 @@ import { motion } from 'framer-motion'
 
 const useCaseSteps = [
   {
-    title: 'Client goal',
-    description: 'A clinic wants more premium patient bookings and a predictable growth pipeline.',
+    title: 'Client comes in',
+    description: '"We want more patients" — A cosmetic clinic needs a predictable patient pipeline.',
     icon: Target
   },
   {
-    title: 'System setup',
-    description: 'We configure campaigns, lead capture, and appointment workflows for the clinic.',
+    title: 'Setup',
+    description: 'Launch Meta ads, build landing page, configure chatbot and booking system.',
     icon: SlidersHorizontal
   },
   {
-    title: 'Lead capture',
-    description: 'Qualified visitors are converted into clinic leads through optimized forms and ads.',
+    title: 'Lead comes in',
+    description: 'User clicks ad, lands on page, submits contact form.',
     icon: Monitor
   },
   {
-    title: 'AI response',
-    description: 'The system replies instantly to new leads, securing interest and booking momentum.',
+    title: 'AI Response',
+    description: 'User asks "What\'s the price?" — AI responds instantly with qualifying questions.',
     icon: Cpu,
     highlight: true
   },
   {
     title: 'Booking',
-    description: 'Appointments are scheduled automatically with minimal manual follow-up.',
+    description: 'AI suggests available times, books appointment automatically.',
     icon: CalendarDays
   },
   {
     title: 'Follow-up',
-    description: 'Automated nurture sequences keep prospects engaged until they convert.',
+    description: 'Reminder 24h before, reminder 2h before, no-show recovery flow.',
     icon: Repeat
   },
   {
     title: 'Conversion',
-    description: 'New patients book and attend consults at a higher close rate.',
+    description: 'Client visits clinic, receives treatment, pays.',
     icon: CheckCircle2
   },
   {
-    title: 'Data optimization',
-    description: 'Every interaction improves the clinic\'s system through continuous learning.',
+    title: 'Data Capture',
+    description: 'System tracks best ads, best questions, best scripts for optimization.',
     icon: Database
   }
 ]
 
 const chatExample = [
   {
-    label: 'Clinic manager',
-    message: 'We need a fast intake system for new orthodontic patients.',
+    label: 'Patient',
+    message: 'What\'s the price for laser hair removal?',
     color: 'text-slate-900',
     bg: 'bg-white'
   },
   {
     label: 'AI assistant',
-    message: 'Optimized. I\'ve confirmed a new consultation for 10:30 AM tomorrow and sent a reminder.',
+    message: 'Our laser treatments start at $299 per session. Are you looking for a consultation this week?',
     color: 'text-slate-100',
     bg: 'bg-cyan-500/15'
   }

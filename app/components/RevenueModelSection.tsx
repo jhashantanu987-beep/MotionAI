@@ -5,27 +5,27 @@ import { Bolt, Repeat, ShieldCheck, TrendingUp } from 'lucide-react'
 const revenueCards = [
   {
     title: 'Setup Fee',
-    price: '$2,500',
-    description: 'One-time onboarding, strategy, and activation fee to launch your growth machine.',
-    features: ['Custom campaign design', 'Full systems audit', 'Integration setup'],
+    price: '$300–$500',
+    description: 'One-time activation fee to launch the system and configure your demand generation pipeline.',
+    features: ['Demand strategy setup', 'Full system integration', 'Lead capture activation'],
     icon: ShieldCheck,
     accent: 'from-slate-800 via-slate-900 to-black',
     highlighted: false
   },
   {
     title: 'Monthly Retainer',
-    price: '$7,500/month',
-    description: 'Ongoing management, optimizations, and team support to keep performance moving.',
-    features: ['Weekly reporting', 'Strategy calls', 'Creative refreshes'],
+    price: '$1K–$3K/month',
+    description: 'Ongoing optimization and campaign management to maintain peak performance.',
+    features: ['Lead nurturing', 'Creative refreshes', 'Performance reporting'],
     icon: Repeat,
     accent: 'from-slate-700 via-slate-800 to-slate-900',
     highlighted: false
   },
   {
-    title: 'Performance-Based',
-    price: '15% of new revenue',
-    description: 'We only earn when your revenue grows—aligned incentives for long-term success.',
-    features: ['Revenue share model', 'No win, no fee structure', 'Aligned growth targets'],
+    title: 'Performance Layer',
+    price: '$10–$50 per booked lead',
+    description: 'Pay per result with revenue share option for aligned incentives.',
+    features: ['Per booked lead', '5–15% revenue share', 'No upfront revenue risk'],
     icon: TrendingUp,
     accent: 'from-indigo-600 via-fuchsia-600 to-pink-500',
     highlighted: true
@@ -33,8 +33,8 @@ const revenueCards = [
   {
     title: 'Demand Generation',
     price: 'Optional +$3,000',
-    description: 'High-converting lead generation campaigns for premium audience capture.',
-    features: ['Paid media activation', 'Creative testing', 'Rapid scaling'],
+    description: 'We generate leads ourselves and take revenue share from conversions.',
+    features: ['Paid media campaigns', 'Lead generation', 'Revenue share model'],
     icon: Bolt,
     accent: 'from-slate-700 via-slate-800 to-slate-900',
     highlighted: false
