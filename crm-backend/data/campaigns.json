@@ -1,0 +1,50 @@
+[
+  {
+    "id": "1",
+    "name": "AI CRM Launch — Meta",
+    "platform": "facebook",
+    "status": "active",
+    "budget": 2000,
+    "spent": 1240,
+    "impressions": 45000,
+    "clicks": 1800,
+    "conversions": 32,
+    "ctr": 4,
+    "cpc": 0.69,
+    "roas": 3.1,
+    "startDate": "2026-04-07T21:05:27.912Z",
+    "endDate": "2026-05-07T21:05:27.913Z"
+  },
+  {
+    "id": "2",
+    "name": "Revenue Engine — Google",
+    "platform": "google",
+    "status": "active",
+    "budget": 1500,
+    "spent": 890,
+    "impressions": 28000,
+    "clicks": 1100,
+    "conversions": 24,
+    "ctr": 3.9,
+    "cpc": 0.81,
+    "roas": 4.2,
+    "startDate": "2026-04-09T21:05:27.913Z",
+    "endDate": "2026-05-09T21:05:27.913Z"
+  },
+  {
+    "id": "3",
+    "name": "Viral UGC — TikTok",
+    "platform": "tiktok",
+    "status": "paused",
+    "budget": 800,
+    "spent": 320,
+    "impressions": 120000,
+    "clicks": 2400,
+    "conversions": 8,
+    "ctr": 2,
+    "cpc": 0.13,
+    "roas": 1.8,
+    "startDate": "2026-04-11T21:05:27.913Z",
+    "endDate": "2026-05-11T21:05:27.913Z"
+  }
+]

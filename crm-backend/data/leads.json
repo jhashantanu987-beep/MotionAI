@@ -1,0 +1,87 @@
+[
+  {
+    "_id": "1776255590595",
+    "id": "1776255590595",
+    "name": "Test Lead 1776255590595",
+    "email": "test_1776255590595@example.com",
+    "source": "manual",
+    "status": "new",
+    "score": 0,
+    "value": 0,
+    "conversation": [],
+    "analysisReason": "Awaiting initial signals...",
+    "createdAt": "2026-04-15T12:19:50.595Z",
+    "updatedAt": "2026-04-15T12:19:50.596Z",
+    "appointmentDate": null,
+    "bookingLink": "https://calendly.com/primelayer7/30min"
+  },
+  {
+    "_id": "1776255859491",
+    "id": "1776255859491",
+    "name": "Shantanu Jha",
+    "email": "jhashantanu987@gmail.com",
+    "phone": "+918810273928",
+    "source": "manual",
+    "score": 90,
+    "analysisReason": "System default applied due to analysis time-out.",
+    "notes": "looking for revenue growth by 2x\n",
+    "status": "converted",
+    "value": 5000,
+    "conversation": [
+      {
+        "role": "ai",
+        "content": "Thanks for reaching out! Let me understand your needs better.",
+        "timestamp": "2026-04-15T12:24:19.753Z"
+      },
+      {
+        "role": "user",
+        "content": "book appointement",
+        "timestamp": "2026-04-15T12:24:46.858Z"
+      },
+      {
+        "role": "ai",
+        "content": "Thanks for reaching out! Let me understand your needs better.",
+        "timestamp": "2026-04-15T12:24:48.069Z"
+      },
+      {
+        "role": "user",
+        "content": "i want lead",
+        "timestamp": "2026-04-15T12:24:59.515Z"
+      },
+      {
+        "role": "ai",
+        "content": "Thanks for reaching out! Let me understand your needs better.",
+        "timestamp": "2026-04-15T12:25:01.270Z"
+      },
+      {
+        "role": "ai",
+        "content": "You're a great fit. You can book a call here: https://calendly.com/primelayer7/30min",
+        "timestamp": "2026-04-15T12:28:48.140Z"
+      },
+      {
+        "role": "user",
+        "content": "hey",
+        "timestamp": "2026-04-15T12:48:39.997Z"
+      },
+      {
+        "role": "ai",
+        "content": "Understood. We usually focus on end-to-end revenue automation—how does that align with your current operations?",
+        "timestamp": "2026-04-15T12:48:41.458Z"
+      },
+      {
+        "role": "user",
+        "content": "book appointment ",
+        "timestamp": "2026-04-15T12:48:53.675Z"
+      },
+      {
+        "role": "ai",
+        "content": "I've analyzed your profile and we should align on a strategy. Secure your slot here: https://calendly.com/primelayer7/30min",
+        "timestamp": "2026-04-15T12:48:53.676Z"
+      }
+    ],
+    "createdAt": "2026-04-15T12:24:19.491Z",
+    "updatedAt": "2026-04-15T12:48:53.677Z",
+    "appointmentDate": null,
+    "bookingLink": "https://calendly.com/primelayer7/30min"
+  }
+]
