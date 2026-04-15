@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { proxyJson } from '@/lib/backendClient'
-import { API_CONFIG } from './services/ugcApi';
+
 
 export const dynamic = 'force-dynamic'
 
