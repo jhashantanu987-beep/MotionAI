@@ -59,7 +59,7 @@ export default function CampaignManager() {
   }
 
   const handleDelete = async (id: string) => {
-    await fetch(`http://localhost:5000/api/campaigns/${id}`, { method: 'DELETE' })
+    await fetch(`${API_CONFIG.baseUrl}/campaigns/${id}`, { method: 'DELETE' })
     queryClient.invalidateQueries({ queryKey: ['ad-campaigns'] })
   }
 

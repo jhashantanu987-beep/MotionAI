@@ -1,4 +1,4 @@
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api';
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'https://klara-ai-backend.onrender.com/api';
 
 export const API_CONFIG = {
   baseUrl: API_BASE_URL,
