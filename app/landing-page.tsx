@@ -479,7 +479,7 @@ export default function LandingPage() {
           </div>
           <div className="relative" data-reveal style={{ '--delay': '300ms' } as React.CSSProperties}>
             <div className="relative rounded-2xl overflow-hidden border border-white/5 glass-panel shadow-2xl transition-all duration-700 hover:scale-[1.02]">
-              <img alt="WhatsApp Automation Interface" className="w-full h-auto" src="https://lh3.googleusercontent.com/aida/ADBb0uitIj52HVp6qfajyOeZI7JBaNw7JFZWFcEtzBiQ0hCHZPogJMU2Qx2mPo478_-C9ULLGUlokYPPhsQSC18yTa2xQBCrbwYj-lPQaYcQnilffMWviAAqodfCI7ExJvHyk3T33uW99dAKMdqwEiaK0tWX0F2-QzADEPjagrpJ3l_vpqHlO4bZH1seuTqgi4L3Aur0aSaQF4wILw3FDOxfT5osDG2n6Ce5UgRHoP0FxQSQlsjGGYK-eP24KrZTPkadxNTKsTK6Ci6G" style={{filter: 'none'}} />
+              <img alt="WhatsApp Automation Interface" className="w-full h-auto" src="/images/whatsapp_automation.png" style={{filter: 'none'}} />
             </div>
           </div>
         </div>
@@ -490,7 +490,7 @@ export default function LandingPage() {
         <div className="grid lg:grid-cols-2 gap-24 items-center">
           <div className="order-2 lg:order-1 relative" data-reveal style={{ '--delay': '300ms' } as React.CSSProperties}>
             <div className="relative rounded-2xl overflow-hidden border border-white/5 glass-panel shadow-2xl transition-all duration-700 hover:scale-[1.02]">
-              <img alt="Automated Follow-ups interface" className="w-full h-auto" src="https://lh3.googleusercontent.com/aida/ADBb0uiGImwQQSEqekbK3BEpYoA-tkvy97SkK9Bpf9XxmYvuM44ZOVcJ0oyAptUUbWjbzird4ZOhXsUXa8E6cT5bsjcK-Yjnbx881bcsYHoDVhOPCjjm9jOcxVljiofSo1oj8q58kW_NuTVVRsQXsmKOj3v1PotsAms5EFE08VT5BfSAk58bLXgTBpFP3VywkOnosgOqEzDrUDgKXC0QnL9gI9yiEwWwoVSoWREcrdGK-EFJREs5UFrvkTXR_jg2ofim_WLCUfZluOvFSg" style={{filter: 'none'}} />
+              <img alt="Automated Follow-ups interface" className="w-full h-auto" src="/images/automated_followups.png" style={{filter: 'none'}} />
             </div>
           </div>
           <div className="order-1 lg:order-2" data-reveal>
@@ -536,7 +536,7 @@ export default function LandingPage() {
           </div>
           <div className="relative" data-reveal style={{ '--delay': '300ms' } as React.CSSProperties}>
             <div className="relative rounded-2xl overflow-hidden border border-white/5 glass-panel shadow-2xl transition-all duration-700 hover:scale-[1.02]">
-              <img alt="Lead activity analytics chart" className="w-full h-auto" src="https://lh3.googleusercontent.com/aida/ADBb0ujKR-31jBGutKwMcEdPl_NZc54HsdzyxpGx1U2uQHseFgTzzPCMjgYWRcB1Pr6F4byf44fe3vxcVboN9LnpJhloPYT3-v4Fsd1vh6NoCKoM52FslQl6to8tgiWXdrWssnxcUAZ478-VjDSFMf5w3UCkTYAd8lquw0RcYXnk-zI41xZISI1c0PwZuzHmhqtMueK0RuQEkA5cU7jJIjZFz1UVSM2WpSInBL100A5EongrJ4Sdl9QSy42kutFQfCQx3iqKypCV4VP4WA" style={{filter: 'none'}} />
+              <img alt="Lead activity analytics chart" className="w-full h-auto" src="/images/सक्रिय लीड वृद्धि और नये संपर्क.png" style={{filter: 'none'}} />
             </div>
           </div>
         </div>
