@@ -1,4 +1,4 @@
-import { API_CONFIG } from '../../../../config/api';
+import { API_CONFIG } from '@/app/config/api';
 
 const API_BASE_URL = `${API_CONFIG.baseUrl}/ai`;
 

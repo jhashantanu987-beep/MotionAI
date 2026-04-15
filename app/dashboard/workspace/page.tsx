@@ -1,8 +1,10 @@
+'use client'
+
 import { useQuery } from '@tanstack/react-query'
 import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { Zap, Activity, Target, Network, Layers, ShieldCheck } from 'lucide-react'
-import { API_CONFIG } from '../../config/api'
+import { API_CONFIG } from '@/app/config/api'
 
 export const dynamic = 'force-dynamic'
 

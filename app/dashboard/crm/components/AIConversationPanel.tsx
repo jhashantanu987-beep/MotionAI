@@ -3,7 +3,7 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { X, Bot, User, Shield, Zap, Send } from 'lucide-react'
-import { API_CONFIG } from '../../config/api'
+import { API_CONFIG } from '@/app/config/api'
 
 interface Message {
   role: 'ai' | 'user' | 'system'
